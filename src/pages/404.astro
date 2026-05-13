@@ -1,9 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Container from '@/components/Container.astro';
-import { getMessages } from '@/i18n';
+import { defaultLocale, getMessages } from '@/i18n';
 
-const m = getMessages('en');
+const m = getMessages(defaultLocale);
 ---
 
 <Layout title="404 — Not Found">

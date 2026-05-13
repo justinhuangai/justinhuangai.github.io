@@ -1,7 +1,17 @@
 import { getCollection } from 'astro:content';
+import { AITHER_LOCALES } from './constants.mjs';
+
+const AITHER_LOCALE_BY_LOWERCASE = new Map(
+  AITHER_LOCALES.map((locale) => [locale.toLowerCase(), locale]),
+);
+
+function normalizeContentEntryLocale(entryLocale) {
+  return AITHER_LOCALE_BY_LOWERCASE.get(entryLocale?.toLowerCase?.() ?? '') ?? entryLocale;
+}
 
 export function isLocalizedEntry(entry, locale) {
-  return entry.id.startsWith(`${locale}/`);
+  const [entryLocale] = entry.id.split('/');
+  return normalizeContentEntryLocale(entryLocale) === locale;
 }
 
 export function sortEntriesByPinnedDate(a, b) {

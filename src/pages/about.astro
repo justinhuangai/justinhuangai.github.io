@@ -1,5 +1,6 @@
 ---
 import AboutPage from '@/components/pages/AboutPage.astro';
+import { rootLocale } from '@/lib/route-helpers';
 ---
 
-<AboutPage locale="en" />
+<AboutPage locale={rootLocale} />

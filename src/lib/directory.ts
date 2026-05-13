@@ -98,15 +98,15 @@ function resolveLocalizedValue(locale: Locale, value: LocalizedDirectoryValue): 
     return value;
   }
 
-  return value[locale] ?? value.en ?? value['zh-hans'] ?? value['zh-hant'] ?? '';
+  return value[locale] ?? value['en-US'] ?? value['zh-CN'] ?? value['zh-TW'] ?? '';
 }
 
 function resolveSearchConfig(locale: Locale): DirectorySearchConfig {
   const configuredPlaceholder = siteConfig.directoryPage?.searchPlaceholder?.trim();
   const defaultPlaceholder =
-    locale === 'zh-hant'
+    locale === 'zh-TW'
       ? '搜尋導航內容...'
-      : locale === 'zh-hans'
+      : locale === 'zh-CN'
         ? '搜索导航内容...'
         : 'Search the directory...';
 
@@ -119,15 +119,15 @@ function resolveSearchConfig(locale: Locale): DirectorySearchConfig {
         : defaultPlaceholder,
     locale,
     emptyTitle:
-      locale === 'zh-hant'
+      locale === 'zh-TW'
         ? '沒有找到結果'
-        : locale === 'zh-hans'
+        : locale === 'zh-CN'
           ? '没有找到结果'
           : 'No results found',
     emptyDescription:
-      locale === 'zh-hant'
+      locale === 'zh-TW'
         ? '試試其他關鍵字或更短的搜尋詞。'
-        : locale === 'zh-hans'
+        : locale === 'zh-CN'
           ? '试试其他关键词或更短的搜索词。'
           : 'Try a different keyword or a shorter query.',
   };

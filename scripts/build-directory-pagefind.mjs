@@ -28,7 +28,7 @@ function resolveLocalizedValue(locale, value) {
     return value;
   }
 
-  return value?.[locale] ?? value?.[DEFAULT_LOCALE] ?? value?.['zh-hans'] ?? value?.['zh-hant'] ?? '';
+  return value?.[locale] ?? value?.[DEFAULT_LOCALE] ?? value?.['zh-CN'] ?? value?.['zh-TW'] ?? '';
 }
 
 function slugify(input) {
@@ -57,7 +57,7 @@ function normalizePagefindLanguage(locale) {
     return 'zh';
   }
 
-  if (locale === 'pt-br') {
+  if (locale === 'pt-BR') {
     return 'pt';
   }
 

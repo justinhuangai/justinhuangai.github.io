@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@aither/astro':
-        specifier: workspace:^2026.4.21
+        specifier: workspace:^2026.5.13
         version: link:packages/aither-astro
       '@astrojs/mdx':
         specifier: ^5.0.0

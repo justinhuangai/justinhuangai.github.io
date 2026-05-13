@@ -51,12 +51,12 @@ const { currentLocale, currentPath, allMessages } = Astro.props;
 
     if (code === 'zh') {
       if (lang.includes('tw') || lang.includes('hk') || lang.includes('hant')) {
-        return 'zh-hant';
+        return 'zh-TW';
       }
-      return 'zh-hans';
+      return 'zh-CN';
     }
-    if (code === 'ko') return 'ko';
-    if (code === 'en') return 'en';
+    if (code === 'ko') return 'ko-KR';
+    if (code === 'en') return 'en-US';
     return null;
   }
 
@@ -64,7 +64,7 @@ const { currentLocale, currentPath, allMessages } = Astro.props;
     if (!(banner instanceof HTMLElement) || banner.dataset.bound === 'true') return;
     banner.dataset.bound = 'true';
 
-    const currentLocale = (banner.dataset.currentLocale ?? 'en') as Locale;
+    const currentLocale = (banner.dataset.currentLocale ?? 'en-US') as Locale;
     const currentPath = banner.dataset.currentPath ?? '/';
     const messagesNode = banner.querySelector('[data-locale-banner-messages]');
     const text = banner.querySelector('[data-locale-banner-text]');

@@ -8,12 +8,12 @@ interface Props {
 
 const { placeholder, locale, emptyTitle, emptyDescription } = Astro.props;
 const searchUi =
-  locale === 'zh-hant'
+  locale === 'zh-TW'
     ? {
         clearLabel: '清除搜尋',
         searchingLabel: '搜尋中...',
       }
-    : locale === 'zh-hans'
+    : locale === 'zh-CN'
       ? {
           clearLabel: '清除搜索',
           searchingLabel: '搜索中...',
@@ -202,11 +202,11 @@ const searchUi =
     };
 
     const getResultLabel = (total) => {
-      if (locale === 'zh-hant') {
+      if (locale === 'zh-TW') {
         return `找到 ${total} 個結果`;
       }
 
-      if (locale === 'zh-hans') {
+      if (locale === 'zh-CN') {
         return `找到 ${total} 个结果`;
       }
 

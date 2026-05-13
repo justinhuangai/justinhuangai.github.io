@@ -1,5 +1,6 @@
 import { createLlmsResponse } from '@/lib/site-content';
+import { rootLocale } from '@/lib/route-helpers';
 
 export async function GET() {
-  return createLlmsResponse('en', 'summary');
+  return createLlmsResponse(rootLocale, 'summary');
 }

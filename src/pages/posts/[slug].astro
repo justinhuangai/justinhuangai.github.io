@@ -1,12 +1,13 @@
 ---
 import PostPage from '@/components/pages/PostPage.astro';
 import { getPostStaticPaths } from '@/lib/site-content';
+import { rootLocale } from '@/lib/route-helpers';
 
 export async function getStaticPaths() {
-  return getPostStaticPaths('en');
+  return getPostStaticPaths(rootLocale);
 }
 
 const { post, prevPost, nextPost } = Astro.props;
 ---
 
-<PostPage locale="en" post={post} prevPost={prevPost} nextPost={nextPost} />
+<PostPage locale={rootLocale} post={post} prevPost={prevPost} nextPost={nextPost} />

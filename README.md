@@ -1,6 +1,6 @@
 # Justin Huang Site
 
-**English** | [简体中文](./README_ZH-HANS.md) | [繁體中文](./README_ZH-HANT.md) | [한국어](./README_KO.md)
+**English** | [简体中文](./README_ZH-CN.md) | [繁體中文](./README_ZH-TW.md) | [한국어](./README_KO-KR.md)
 
 This branch contains the Astro source that powers [justinhuangai.github.io](https://justinhuangai.github.io).
 
@@ -19,7 +19,7 @@ The site is a personal writing space about AI, technology, writing, and life. It
 - Tailwind CSS v4
 - React 19 islands where interaction is needed
 - GitHub Pages deployment from `gh-pages`
-- Locales: `en`, `zh-hans`, `zh-hant`, `ko`
+- Locales: `en-US`, `zh-CN`, `zh-TW`, `ko-KR`
 
 ## Branch Model
 

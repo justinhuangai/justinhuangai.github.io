@@ -1,37 +1,37 @@
 export const localeMeta = /** @type {const} */ ([
   {
-    code: 'en',
+    code: 'en-US',
     label: 'English',
     intl: 'en-US',
-    htmlLang: 'en',
+    htmlLang: 'en-US',
     crispLocale: 'en',
     giscusLocale: 'en',
   },
   {
-    code: 'zh-hans',
+    code: 'zh-CN',
     label: '简体中文',
     intl: 'zh-CN',
-    htmlLang: 'zh-Hans',
+    htmlLang: 'zh-CN',
     crispLocale: 'zh',
     giscusLocale: 'zh-CN',
   },
   {
-    code: 'zh-hant',
+    code: 'zh-TW',
     label: '繁體中文',
     intl: 'zh-TW',
-    htmlLang: 'zh-Hant',
+    htmlLang: 'zh-TW',
     crispLocale: 'zh',
     giscusLocale: 'zh-TW',
   },
   {
-    code: 'ko',
+    code: 'ko-KR',
     label: '한국어',
     intl: 'ko-KR',
-    htmlLang: 'ko',
+    htmlLang: 'ko-KR',
     crispLocale: 'ko',
     giscusLocale: 'ko',
   },
 ]);
 
-export const defaultLocale = 'en';
+export const defaultLocale = 'en-US';
 export const locales = localeMeta.map((entry) => entry.code);

@@ -29,7 +29,7 @@ type TransparencyCopy = {
 const { locale } = Astro.props;
 
 const copy: TransparencyCopy =
-  locale === 'zh-hant'
+  locale === 'zh-TW'
     ? {
         eyebrow: '來源與許可',
         title: '圖標來源與使用說明',
@@ -68,7 +68,7 @@ const copy: TransparencyCopy =
           },
         ],
       }
-    : locale === 'zh-hans'
+    : locale === 'zh-CN'
       ? {
           eyebrow: '来源与许可',
           title: '图标来源与使用说明',

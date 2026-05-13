@@ -233,14 +233,14 @@ html.rose {
   --radius-4xl: calc(var(--radius) + 16px);
 }
 
-html:lang(zh-Hans) {
+html:lang(zh-CN) {
   --font-body: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC",
     "Microsoft YaHei", "Microsoft YaHei UI", system-ui, sans-serif;
   --font-heading: var(--font-body);
   --font-ui: var(--font-body);
 }
 
-html:lang(zh-Hant) {
+html:lang(zh-TW) {
   --font-body: "PingFang TC", "Hiragino Sans CNS", "Noto Sans TC",
     "Microsoft JhengHei", "Microsoft JhengHei UI", "Heiti TC", system-ui, sans-serif;
   --font-heading: var(--font-body);

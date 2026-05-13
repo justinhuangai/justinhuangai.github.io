@@ -3,14 +3,14 @@
  * CategoryPill — colored capsule for post categories.
  * Color is deterministic based on the English key for cross-locale consistency.
  */
-import { translateCategory } from '@/i18n';
+import { defaultLocale, translateCategory } from '@/i18n';
 
 interface Props {
   category: string;
   locale?: string;
 }
 
-const { category, locale = 'en' } = Astro.props;
+const { category, locale = defaultLocale } = Astro.props;
 const displayCategory = translateCategory(category, locale);
 
 const colors = [

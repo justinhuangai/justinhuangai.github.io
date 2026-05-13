@@ -41,8 +41,8 @@ const giscus = siteConfig.giscus;
 const giscusEnabled = giscus.repo !== '' && giscus.repoId !== '' && giscus.categoryId !== '';
 const giscusLang = giscusLocales[locale];
 
-const isZhHans = locale === 'zh-hans';
-const isZhHant = locale === 'zh-hant';
+const isZhHans = locale === 'zh-CN';
+const isZhHant = locale === 'zh-TW';
 
 const ui = isZhHant
   ? {

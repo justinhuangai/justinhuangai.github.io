@@ -76,7 +76,7 @@ export const siteConfig = defineAitherSiteConfig({
     themeDark: 'dark',
   },
   sections: [
-    { id: 'translations', labelKey: 'translations', contentLocale: 'zh-hans' },
+    { id: 'translations', labelKey: 'translations', contentLocale: 'zh-CN' },
   ] as ContentSection[],
   nav: [
     { labelKey: 'blog' as const, href: '/' },

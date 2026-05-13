@@ -1,10 +1,10 @@
 import { AGENT_PROTOCOL_VERSION, buildAgentDocumentUrls } from '@/lib/agent-protocol';
 import { siteConfig } from '@/config/site';
-import { locales } from '@/i18n';
+import { defaultLocale, locales } from '@/i18n';
 
 export function GET() {
   const site = siteConfig.url;
-  const docs = buildAgentDocumentUrls('en');
+  const docs = buildAgentDocumentUrls(defaultLocale);
 
   const lines = [
     '---',
@@ -12,7 +12,7 @@ export function GET() {
     `version: ${AGENT_PROTOCOL_VERSION}`,
     `description: ${siteConfig.description}`,
     `homepage: ${site}`,
-    `metadata: {"protocol":"aither-agent-v2","type":"multilingual-blog","default_locale":"en"}`,
+    `metadata: {"protocol":"aither-agent-v2","type":"multilingual-blog","default_locale":"${defaultLocale}"}`,
     '---',
     '',
     `# ${siteConfig.name} — Agent Protocol`,

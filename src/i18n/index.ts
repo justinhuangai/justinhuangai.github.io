@@ -1,7 +1,7 @@
-import { en } from './messages/en';
-import { zhHans } from './messages/zh-hans';
-import { zhHant } from './messages/zh-hant';
-import { ko } from './messages/ko';
+import { en } from './messages/en-US';
+import { zhCn } from './messages/zh-CN';
+import { zhTw } from './messages/zh-TW';
+import { ko } from './messages/ko-KR';
 import {
   defaultLocale as configuredDefaultLocale,
   localeMeta as configuredLocaleMeta,
@@ -10,10 +10,10 @@ import {
 export type Messages = typeof en;
 
 const messages: Record<string, Messages> = {
-  en,
-  'zh-hans': zhHans,
-  'zh-hant': zhHant,
-  ko,
+  'en-US': en,
+  'zh-CN': zhCn,
+  'zh-TW': zhTw,
+  'ko-KR': ko,
 };
 
 const localeMeta = configuredLocaleMeta;
@@ -22,8 +22,8 @@ export type Locale = (typeof localeMeta)[number]['code'];
 export const locales = localeMeta.map((entry) => entry.code) as readonly Locale[];
 export const defaultLocale = configuredDefaultLocale as Locale;
 export const nonDefaultLocales = locales.filter((locale) => locale !== defaultLocale);
-export const preferredLocaleStorageKey = 'aither-preferred-locale';
-export const localeBannerDismissedSessionKey = 'aither-locale-banner-dismissed';
+export const preferredLocaleStorageKey = 'preferred-locale';
+export const localeBannerDismissedSessionKey = 'locale-banner-dismissed';
 
 function buildLocaleRecord<T>(
   mapper: (entry: (typeof localeMeta)[number]) => T,
@@ -39,6 +39,10 @@ function escapeForRegex(value: string): string {
 
 const localePrefixPattern = new RegExp(
   `^\\/(${nonDefaultLocales.map(escapeForRegex).join('|')})(?=\\/|$)`,
+);
+
+const localeByLowercase = new Map(
+  locales.map((locale) => [locale.toLowerCase(), locale]),
 );
 
 export const localeLabels: Record<Locale, string> = {
@@ -59,25 +63,36 @@ export function isLocale(value: string): value is Locale {
 
 export function resolveLocale(value: string): Locale {
   const normalized = value.trim().toLowerCase();
+  const exactLocale = localeByLowercase.get(normalized);
 
-  if (isLocale(normalized)) {
-    return normalized;
+  if (exactLocale) {
+    return exactLocale;
   }
 
-  if (normalized === 'zh' || normalized.startsWith('zh-cn') || normalized.startsWith('zh-sg')) {
-    return 'zh-hans';
+  if (
+    normalized === 'zh' ||
+    normalized.startsWith('zh-cn') ||
+    normalized.startsWith('zh-sg') ||
+    normalized.includes('hans')
+  ) {
+    return 'zh-CN';
   }
 
-  if (normalized.startsWith('zh-tw') || normalized.startsWith('zh-hk') || normalized.startsWith('zh-mo')) {
-    return 'zh-hant';
+  if (
+    normalized.startsWith('zh-tw') ||
+    normalized.startsWith('zh-hk') ||
+    normalized.startsWith('zh-mo') ||
+    normalized.includes('hant')
+  ) {
+    return 'zh-TW';
   }
 
   if (normalized.startsWith('ko')) {
-    return 'ko';
+    return 'ko-KR';
   }
 
   if (normalized.startsWith('en')) {
-    return 'en';
+    return 'en-US';
   }
 
   return defaultLocale;
@@ -102,12 +117,12 @@ function hasMessageKey<T extends object>(
   return Object.prototype.hasOwnProperty.call(messages, key);
 }
 
-export function translateTag(key: string, locale: string = 'en'): string {
+export function translateTag(key: string, locale: string = defaultLocale): string {
   const { tags } = getMessages(locale);
   return hasMessageKey(tags, key) ? tags[key] : key;
 }
 
-export function translateCategory(key: string, locale: string = 'en'): string {
+export function translateCategory(key: string, locale: string = defaultLocale): string {
   const { categories } = getMessages(locale);
   return hasMessageKey(categories, key) ? categories[key] : key;
 }

@@ -17,17 +17,17 @@ const visibleGroups = content.groups.filter(
   (group) => group.annotations.show_in_directory === 'true' && group.links.length > 0,
 );
 const emptyCopy =
-  locale === 'zh-hant'
+  locale === 'zh-TW'
     ? {
         title: '導航內容準備中',
         description: '目錄頁已經啟用，但目前還沒有站點自己的導航條目。後續把資料補到 src/data/directory-links.ts 即可自動出現在這裡。',
       }
-    : locale === 'zh-hans'
+    : locale === 'zh-CN'
       ? {
           title: '导航内容准备中',
           description: '目录页已经启用，但目前还没有站点自己的导航条目。后续把资料补到 src/data/directory-links.ts 即可自动出现在这里。',
         }
-      : locale === 'ko'
+      : locale === 'ko-KR'
         ? {
             title: '디렉토리 준비 중',
             description: '디렉토리 페이지는 이미 활성화되었지만 아직 사이트 전용 링크 데이터가 없습니다. 이후 src/data/directory-links.ts 에 항목을 추가하면 여기에서 자동으로 노출됩니다.',

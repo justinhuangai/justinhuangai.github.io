@@ -1,5 +1,6 @@
 import { createAuthResponse } from '@/lib/agent-protocol';
+import { rootLocale } from '@/lib/route-helpers';
 
 export function GET() {
-  return createAuthResponse('en');
+  return createAuthResponse(rootLocale);
 }

@@ -19,11 +19,14 @@ const localePrefixPattern = new RegExp(
 );
 
 export function isAitherLocale(value) {
+  if (!value) return false;
   return AITHER_LOCALES.includes(value);
 }
 
 export function resolveAitherLocale(value) {
-  return value && isAitherLocale(value) ? value : AITHER_DEFAULT_LOCALE;
+  if (!value) return AITHER_DEFAULT_LOCALE;
+  if (AITHER_LOCALES.includes(value)) return value;
+  return AITHER_DEFAULT_LOCALE;
 }
 
 export function getAitherLocaleFromUrl(url) {
@@ -63,20 +66,20 @@ export function detectAitherLocaleFromLanguageTag(languageTag) {
       normalizedTag.includes('hk') ||
       normalizedTag.includes('hant')
     ) {
-      return 'zh-hant';
+      return 'zh-TW';
     }
 
-    return 'zh-hans';
+    return 'zh-CN';
   }
 
-  if (languageCode === 'ko') return 'ko';
-  if (languageCode === 'fr') return 'fr';
-  if (languageCode === 'de') return 'de';
-  if (languageCode === 'it') return 'it';
-  if (languageCode === 'es') return 'es';
-  if (languageCode === 'ru') return 'ru';
-  if (languageCode === 'id' || languageCode === 'ms') return 'id';
-  if (languageCode === 'pt') return 'pt-br';
+  if (languageCode === 'ko') return 'ko-KR';
+  if (languageCode === 'fr') return 'fr-FR';
+  if (languageCode === 'de') return 'de-DE';
+  if (languageCode === 'it') return 'it-IT';
+  if (languageCode === 'es') return 'es-ES';
+  if (languageCode === 'ru') return 'ru-RU';
+  if (languageCode === 'id' || languageCode === 'ms') return 'id-ID';
+  if (languageCode === 'pt') return 'pt-BR';
   if (languageCode === defaultLanguageCode) return AITHER_DEFAULT_LOCALE;
 
   return null;

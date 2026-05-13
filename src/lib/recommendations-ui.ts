@@ -69,7 +69,7 @@ const zhHantCopy: RecommendationsUiCopy = {
 };
 
 export function getRecommendationsUiCopy(locale: Locale): RecommendationsUiCopy {
-  if (locale === 'zh-hans') return zhHansCopy;
-  if (locale === 'zh-hant') return zhHantCopy;
+  if (locale === 'zh-CN') return zhHansCopy;
+  if (locale === 'zh-TW') return zhHantCopy;
   return enCopy;
 }

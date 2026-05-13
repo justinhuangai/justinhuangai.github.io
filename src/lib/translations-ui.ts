@@ -64,7 +64,7 @@ const zhHantCopy: TranslationUiCopy = {
 };
 
 export function getTranslationsUiCopy(locale: Locale): TranslationUiCopy {
-  if (locale === 'zh-hans') return zhHansCopy;
-  if (locale === 'zh-hant') return zhHantCopy;
+  if (locale === 'zh-CN') return zhHansCopy;
+  if (locale === 'zh-TW') return zhHantCopy;
   return enCopy;
 }
