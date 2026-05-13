@@ -1,5 +1,5 @@
 ---
-title: "논문 읽기: 《Sequence to Sequence Learning with Neural Networks》 (신경망을 이용한 시퀀스-투-시퀀스 학습)"
+title: "《Sequence to Sequence Learning with Neural Networks》: 인코더-디코더 패러다임의 출발점"
 date: "2026-01-24T16:41:08+08:00"
 category: "Paper Reading"
 description: 인코더-디코더 패러다임의 확립, 실제 Python 코드 예시 포함

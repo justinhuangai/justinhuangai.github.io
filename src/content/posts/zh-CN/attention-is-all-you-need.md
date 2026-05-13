@@ -1,5 +1,5 @@
 ---
-title: "论文共读：《Attention Is All You Need》（注意力就是你所需要的全部）"
+title: "《Attention Is All You Need》：Transformer 的设计原点"
 date: "2026-01-06T16:18:46+08:00"
 category: "Paper Reading"
 description: 分享我对 Transformer 论文的理解，附真实 Python 代码

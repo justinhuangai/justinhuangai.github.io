@@ -1,5 +1,5 @@
 ---
-title: "Paper Reading: Scaling Laws for Neural Language Models"
+title: "Scaling Laws for Neural Language Models: The Mathematics of Scale"
 date: "2026-03-01T16:45:39+08:00"
 category: "Paper Reading"
 description: The mathematics of scale — why bigger models are predictably better, with real Python code examples

@@ -1,5 +1,5 @@
 ---
-title: "논문 읽기: 《Attention Is All You Need》 (어텐션만 있으면 충분하다)"
+title: "《Attention Is All You Need》: Transformer의 설계 원점"
 date: "2026-01-06T16:18:46+08:00"
 category: "Paper Reading"
 description: Transformer 논문에 대한 이해, 실제 Python 코드 예시 포함

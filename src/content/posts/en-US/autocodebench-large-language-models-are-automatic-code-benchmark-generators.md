@@ -1,5 +1,5 @@
 ---
-title: "Paper Reading: AutoCodeBench: Large Language Models are Automatic Code Benchmark Generators"
+title: "AutoCodeBench: When LLMs Generate Code Benchmarks"
 description: "Why the Elixir column is worth noticing in AutoCodeBench, and how it opens up a discussion of difficulty equivalence in automatically generated multilingual code benchmarks"
 date: "2026-04-19T16:19:00+08:00"
 category: "Paper Reading"

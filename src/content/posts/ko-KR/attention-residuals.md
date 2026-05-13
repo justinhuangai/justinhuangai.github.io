@@ -1,5 +1,5 @@
 ---
-title: "기술 리포트 읽기: 《Attention Residuals》 (어텐션 잔차)"
+title: "《Attention Residuals》: 잔차 연결도 어텐션처럼 만들기"
 date: "2026-03-19T16:49:27+08:00"
 category: "Technical Report Reading"
 description: "Kimi Team의 Attention Residuals 기술 리포트 읽기: 왜 residual connection도 attention처럼 바뀌어야 하는지, 그리고 Full AttnRes / Block AttnRes가 그 아이디어를 어떻게 학습 가능하고 배포 가능한 시스템으로 만드는지"

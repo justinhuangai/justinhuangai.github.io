@@ -1,5 +1,5 @@
 ---
-title: "Paper Reading: Training Compute-Optimal Large Language Models"
+title: "Training Compute-Optimal Large Language Models: What Chinchilla Changed"
 date: "2026-03-11T16:58:04+08:00"
 category: "Paper Reading"
 description: The Chinchilla paper — why most large models were undertrained, and how to spend your compute budget wisely, with real Python code examples

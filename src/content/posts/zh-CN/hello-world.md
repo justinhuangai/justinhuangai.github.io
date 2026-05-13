@@ -1,5 +1,5 @@
 ---
-title: 👋 你好，世界
+title: 👋 欢迎来到 Astro-Theme-Aither
 date: "2026-01-01T16:07:13+08:00"
 category: Tutorial
 description: 欢迎来到 Astro-Theme-Aither——一个相信文字本身就很美的 AI 原生 Astro 主题。

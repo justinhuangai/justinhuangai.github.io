@@ -1,5 +1,5 @@
 ---
-title: "Technical Report Reading: Attention Residuals"
+title: "Attention Residuals: Making Residual Connections Attention-Like"
 date: "2026-03-19T16:49:27+08:00"
 category: "Technical Report Reading"
 description: "A reading of Kimi Team's Attention Residuals technical report: why residual connections should become attention-like too, and how Full AttnRes / Block AttnRes turn that idea into a trainable, deployable system"

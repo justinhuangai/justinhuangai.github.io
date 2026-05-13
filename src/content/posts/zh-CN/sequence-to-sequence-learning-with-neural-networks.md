@@ -1,5 +1,5 @@
 ---
-title: "论文共读：《Sequence to Sequence Learning with Neural Networks》（使用神经网络进行序列到序列学习）"
+title: "《Sequence to Sequence Learning with Neural Networks》：编码器-解码器范式的起点"
 date: "2026-01-24T16:41:08+08:00"
 category: "Paper Reading"
 description: 编码器-解码器范式的确立，附真实 Python 代码

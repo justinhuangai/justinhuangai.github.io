@@ -1,5 +1,5 @@
 ---
-title: "技术报告共读：《Attention Residuals》（注意力残差）"
+title: "《Attention Residuals》：让残差连接也注意力化"
 date: "2026-03-19T16:49:27+08:00"
 category: "Technical Report Reading"
 description: Kimi 团队 Attention Residuals 技术报告：为什么残差连接也该“注意力化”，以及 Full AttnRes / Block AttnRes 如何把这个想法做成可训练、可部署的系统

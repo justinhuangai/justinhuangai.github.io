@@ -1,5 +1,5 @@
 ---
-title: "论文共读：《Language Models are Few-Shot Learners》（语言模型是少样本学习者）"
+title: "《Language Models are Few-Shot Learners》：GPT-3 与上下文学习"
 date: "2026-02-11T16:22:54+08:00"
 category: "Paper Reading"
 description: 更大的模型，更善于从上下文中诱发能力，附真实 Python 代码

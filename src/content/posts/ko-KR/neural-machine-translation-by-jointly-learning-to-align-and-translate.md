@@ -1,5 +1,5 @@
 ---
-title: "논문 읽기: 《Neural Machine Translation by Jointly Learning to Align and Translate》 (정렬과 번역을 공동으로 학습하는 신경 기계 번역)"
+title: "《Neural Machine Translation by Jointly Learning to Align and Translate》: Transformer 이전의 어텐션"
 date: "2026-01-11T16:26:19+08:00"
 category: "Paper Reading"
 description: 어텐션 메커니즘의 기원, 실제 Python 코드 예시 포함

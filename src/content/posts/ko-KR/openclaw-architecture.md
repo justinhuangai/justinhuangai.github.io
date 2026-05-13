@@ -1,5 +1,5 @@
 ---
-title: "OpenClaw 특집: 아키텍처 분석 🦞"
+title: "OpenClaw 아키텍처: 셀프호스팅 AI 어시스턴트의 엔지니어링 골격 🦞"
 date: "2026-02-24T16:37:11+08:00"
 category: "OpenClaw"
 description: v2026.3.8 소스코드 기반, 셀프호스팅 AI 어시스턴트의 엔지니어링 골격 해부

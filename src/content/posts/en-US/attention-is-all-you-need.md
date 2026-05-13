@@ -1,5 +1,5 @@
 ---
-title: "Paper Reading: Attention Is All You Need"
+title: "Attention Is All You Need: The Transformer Blueprint"
 date: "2026-01-06T16:18:46+08:00"
 category: "Paper Reading"
 description: Sharing my understanding of the Transformer paper, with real Python code examples

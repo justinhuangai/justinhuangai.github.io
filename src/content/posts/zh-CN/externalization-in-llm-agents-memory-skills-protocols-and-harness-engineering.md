@@ -1,5 +1,5 @@
 ---
-title: "论文共读：《Externalization in LLM Agents》（LLM Agent 的认知外部化）"
+title: "《Externalization in LLM Agents》：LLM Agent 的认知外部化"
 description: "这篇综述把 memory、skills、protocols 和 harness engineering 统一到一个视角里：Agent 的进步越来越像是在模型外部重写任务，而不只是让模型权重更强。"
 date: "2026-05-13T16:00:00+08:00"
 category: "Paper Reading"

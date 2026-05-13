@@ -1,5 +1,5 @@
 ---
-title: "Paper Reading: Neural Machine Translation by Jointly Learning to Align and Translate"
+title: "Neural Machine Translation by Jointly Learning to Align and Translate: Attention Before Transformers"
 date: "2026-01-11T16:26:19+08:00"
 category: "Paper Reading"
 description: The origin of attention mechanism, with real Python code examples

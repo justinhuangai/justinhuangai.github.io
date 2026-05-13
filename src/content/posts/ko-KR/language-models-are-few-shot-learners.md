@@ -1,5 +1,5 @@
 ---
-title: "논문 읽기: 《Language Models are Few-Shot Learners》 (언어 모델은 퓨샷 학습자다)"
+title: "《Language Models are Few-Shot Learners》: GPT-3와 인컨텍스트 학습"
 date: "2026-02-11T16:22:54+08:00"
 category: "Paper Reading"
 description: 더 큰 모델, 컨텍스트에서 더 잘 능력을 이끌어내다, 실제 Python 코드 예시 포함

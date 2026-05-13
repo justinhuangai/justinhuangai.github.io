@@ -1,5 +1,5 @@
 ---
-title: "Paper Reading: Language Models are Few-Shot Learners"
+title: "Language Models are Few-Shot Learners: GPT-3 and In-Context Learning"
 date: "2026-02-11T16:22:54+08:00"
 category: "Paper Reading"
 description: Larger models, better at eliciting abilities from context, with real Python code examples

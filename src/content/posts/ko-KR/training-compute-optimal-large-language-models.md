@@ -1,5 +1,5 @@
 ---
-title: "논문 읽기: 《Training Compute-Optimal Large Language Models》 (연산량 최적의 대규모 언어 모델 학습)"
+title: "《Training Compute-Optimal Large Language Models》: Chinchilla가 바꾼 것"
 date: "2026-03-11T16:58:04+08:00"
 category: "Paper Reading"
 description: Chinchilla 논문 — 왜 대부분의 대형 모델이 과소 학습되었는지, 그리고 컴퓨팅 예산을 현명하게 쓰는 법, 실제 Python 코드 예시 포함

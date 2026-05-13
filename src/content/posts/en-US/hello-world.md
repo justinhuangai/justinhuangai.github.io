@@ -1,5 +1,5 @@
 ---
-title: 👋 Hello World
+title: 👋 Welcome to Astro-Theme-Aither
 date: "2026-01-01T16:07:13+08:00"
 category: Tutorial
 description: Welcome to Astro-Theme-Aither — an AI-native Astro theme that believes text itself is beautiful.

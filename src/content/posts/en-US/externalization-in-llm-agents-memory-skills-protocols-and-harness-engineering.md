@@ -1,5 +1,5 @@
 ---
-title: "Paper Reading: Externalization in LLM Agents"
+title: "Externalization in LLM Agents: Cognitive Artifacts for Agent Engineering"
 description: "A reading of Externalization in LLM Agents through the lens of cognitive artifacts: agent progress is increasingly about moving memory, skills, protocols, and runtime governance outside the model."
 date: "2026-05-13T16:00:00+08:00"
 category: "Paper Reading"

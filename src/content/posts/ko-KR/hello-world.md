@@ -1,5 +1,5 @@
 ---
-title: 👋 Hello World
+title: 👋 Astro-Theme-Aither에 오신 것을 환영합니다
 date: "2026-01-01T16:07:13+08:00"
 category: Tutorial
 description: Astro-Theme-Aither에 오신 것을 환영합니다 — 타이포그래피가 디자인을 이끄는 블로그 테마

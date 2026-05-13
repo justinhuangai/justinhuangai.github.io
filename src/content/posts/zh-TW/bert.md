@@ -1,5 +1,5 @@
 ---
-title: "論文共讀：《BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding》（BERT：用於語言理解的深度雙向 Transformer 預訓練）"
+title: "《BERT》：語言理解預訓練範式的確立"
 date: "2026-01-31T16:52:21+08:00"
 category: "Paper Reading"
 description: 預訓練範式的確立，附真實 Python 程式碼

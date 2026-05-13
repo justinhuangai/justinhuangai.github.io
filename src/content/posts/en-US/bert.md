@@ -1,5 +1,5 @@
 ---
-title: "Paper Reading: BERT — Pre-training of Deep Bidirectional Transformers for Language Understanding"
+title: "BERT: The Pre-Training Blueprint for Language Understanding"
 date: "2026-01-31T16:52:21+08:00"
 category: "Paper Reading"
 description: Establishing the pre-training paradigm, with real Python code examples

@@ -1,5 +1,5 @@
 ---
-title: "논문 읽기: 《Scaling Laws for Neural Language Models》 (신경 언어 모델을 위한 스케일링 법칙)"
+title: "《Scaling Laws for Neural Language Models》: 규모의 수학"
 date: "2026-03-01T16:45:39+08:00"
 category: "Paper Reading"
 description: 규모의 수학 — 더 큰 모델이 예측 가능하게 더 나은 이유, 실제 Python 코드 예시 포함

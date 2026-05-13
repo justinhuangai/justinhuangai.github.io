@@ -1,5 +1,5 @@
 ---
-title: "논문 읽기: 《BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding》 (BERT: 언어 이해를 위한 깊은 양방향 트랜스포머 사전학습)"
+title: "《BERT》: 언어 이해 사전학습 패러다임의 확립"
 date: "2026-01-31T16:52:21+08:00"
 category: "Paper Reading"
 description: 사전학습 패러다임의 확립, 실제 Python 코드 예시 포함

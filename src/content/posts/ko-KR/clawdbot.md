@@ -1,5 +1,5 @@
 ---
-title: "Clawdbot: 주목할 만한 탈중앙화 오픈소스 AI 프로젝트"
+title: "Clawdbot: 모든 채팅 채널을 잇는 셀프호스팅 AI Agent"
 date: "2026-01-16T16:34:57+08:00"
 category: "OpenClaw"
 description: 모든 채팅 채널을 AI 에이전트에 연결해주는 셀프 호스팅 플랫폼

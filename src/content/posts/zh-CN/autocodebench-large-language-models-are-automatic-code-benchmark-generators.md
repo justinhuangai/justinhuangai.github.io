@@ -1,5 +1,5 @@
 ---
-title: "论文共读：《AutoCodeBench: Large Language Models are Automatic Code Benchmark Generators》（AutoCodeBench：大语言模型是自动代码基准生成器）"
+title: "《AutoCodeBench》：当大语言模型自动生成代码基准"
 description: "AutoCodeBench 论文里，为什么 Elixir 这一语言列值得注意，以及它如何引出自动生成多语言代码 benchmark 的难度等价讨论"
 date: "2026-04-19T16:19:00+08:00"
 category: "Paper Reading"

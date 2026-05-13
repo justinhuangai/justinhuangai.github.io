@@ -1,5 +1,5 @@
 ---
-title: "Paper Reading: Sequence to Sequence Learning with Neural Networks"
+title: "Sequence to Sequence Learning: The Encoder-Decoder Blueprint"
 date: "2026-01-24T16:41:08+08:00"
 category: "Paper Reading"
 description: Establishing the encoder-decoder paradigm, with real Python code examples

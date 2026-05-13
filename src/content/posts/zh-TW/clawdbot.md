@@ -1,5 +1,5 @@
 ---
-title: Clawdbot：一個值得關注的去中心化 AI 開源專案
+title: Clawdbot：連接所有聊天渠道的自託管 AI Agent
 date: "2026-01-16T16:34:57+08:00"
 category: "OpenClaw"
 description: 一個把所有聊天渠道接入 AI Agent 的自託管平台

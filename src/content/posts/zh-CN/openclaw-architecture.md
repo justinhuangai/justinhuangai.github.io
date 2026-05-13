@@ -1,5 +1,5 @@
 ---
-title: OpenClaw 专题：架构分析 🦞
+title: OpenClaw 架构：自托管 AI 助手的工程骨架 🦞
 date: "2026-02-24T16:37:11+08:00"
 category: "OpenClaw"
 description: 基于 v2026.3.8 源码，拆解一个自托管 AI 助手的工程骨架

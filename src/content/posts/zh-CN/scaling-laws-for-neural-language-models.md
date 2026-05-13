@@ -1,5 +1,5 @@
 ---
-title: "论文共读：《Scaling Laws for Neural Language Models》（神经语言模型的缩放定律）"
+title: "《Scaling Laws for Neural Language Models》：规模的数学"
 date: "2026-03-01T16:45:39+08:00"
 category: "Paper Reading"
 description: 规模的数学：为什么更大的模型可预测地更强，附真实 Python 核心代码

@@ -1,5 +1,5 @@
 ---
-title: "Clawdbot: A Decentralized Open-Source AI Project Worth Watching"
+title: "Clawdbot: A Self-Hosted AI Agent Across Chat Channels"
 date: "2026-01-16T16:34:57+08:00"
 category: "OpenClaw"
 description: A self-hosted platform that connects all your chat channels to an AI Agent

@@ -1,5 +1,5 @@
 ---
-title: "论文共读：《Training Compute-Optimal Large Language Models》（训练计算最优的大语言模型）"
+title: "《Training Compute-Optimal Large Language Models》：Chinchilla 改变了什么"
 date: "2026-03-11T16:58:04+08:00"
 category: "Paper Reading"
 description: Chinchilla 论文：为什么 2022 年的大模型全都「喂少了」，以及算力预算到底该怎么分配，附真实 Python 核心代码

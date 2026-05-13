@@ -1,5 +1,5 @@
 ---
-title: "OpenClaw Deep Dive: Ecosystem Analysis 🦞"
+title: "OpenClaw Ecosystem: From Project to AI Assistant Platform 🦞"
 date: "2026-02-03T16:09:32+08:00"
 category: "OpenClaw"
 description: From a single open-source project to a full AI assistant ecosystem

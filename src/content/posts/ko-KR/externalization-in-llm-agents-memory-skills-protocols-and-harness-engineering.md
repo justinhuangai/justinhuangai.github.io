@@ -1,5 +1,5 @@
 ---
-title: "논문 읽기: LLM Agent의 인지적 외부화"
+title: "《Externalization in LLM Agents》: LLM Agent의 인지적 외부화"
 description: "Externalization in LLM Agents를 cognitive artifacts 관점에서 읽는다. Agent의 진전은 점점 더 memory, skills, protocols, harness를 모델 밖의 인프라로 옮기는 일에 가까워지고 있다."
 date: "2026-05-13T16:00:00+08:00"
 category: "Paper Reading"

@@ -1,5 +1,5 @@
 ---
-title: '논문 읽기: 《AutoCodeBench: Large Language Models are Automatic Code Benchmark Generators》'
+title: "《AutoCodeBench》: LLM이 코드 벤치마크를 자동 생성할 때"
 description: "AutoCodeBench에서 왜 Elixir 열이 눈여겨볼 만한지, 그리고 그것이 자동 생성 다국어 코드 benchmark의 난도 등가성 논의를 어떻게 이끄는지"
 date: "2026-04-19T16:19:00+08:00"
 category: "Paper Reading"

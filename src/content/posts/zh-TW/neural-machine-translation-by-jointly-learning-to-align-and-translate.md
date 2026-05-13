@@ -1,5 +1,5 @@
 ---
-title: "論文共讀：《Neural Machine Translation by Jointly Learning to Align and Translate》（通過聯合學習對齊與翻譯實現神經機器翻譯）"
+title: "《Neural Machine Translation by Jointly Learning to Align and Translate》：Transformer 之前的注意力"
 date: "2026-01-11T16:26:19+08:00"
 category: "Paper Reading"
 description: 注意力機制的起源，附真實 Python 程式碼
