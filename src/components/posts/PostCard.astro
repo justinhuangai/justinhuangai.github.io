@@ -1,0 +1,67 @@
+---
+import Tag from '@/components/Tag.astro';
+import type { Locale } from '@/i18n';
+import { formatDate } from '@/lib/formatter';
+
+interface TagLink {
+  tag: string;
+  href: string;
+}
+
+interface Props {
+  slug: string;
+  title: string;
+  date: Date;
+  description?: string;
+  basePath?: string;
+  pinned?: boolean;
+  titleLang?: string;
+  descriptionLang?: string;
+  locale?: Locale;
+  tagLinks?: TagLink[];
+}
+
+const {
+  slug,
+  title,
+  date,
+  description,
+  basePath = '',
+  pinned = false,
+  titleLang,
+  descriptionLang,
+  locale,
+  tagLinks = [],
+} = Astro.props as Props;
+---
+
+<li class="blog-card group px-5 sm:px-6 py-[17px] sm:py-[19px] border-b border-border last:border-b-0 cursor-pointer hover:bg-[var(--color-bg-hover)]">
+  <div class="blog-card-meta inline-flex items-center gap-2 text-[0.74rem] font-semibold text-muted-foreground mb-1.5">
+    {pinned && <span>📌</span>}
+    <span>{formatDate(date)}</span>
+  </div>
+
+  <a
+    lang={titleLang}
+    class="blog-card-title block text-[1.06rem] sm:text-[1.14rem] leading-[1.28] font-semibold text-[var(--color-link)] hover:text-[var(--color-link-hover)] py-0.5 no-underline"
+    href={`${basePath}/posts/${slug}/`}
+  >
+    {title}
+  </a>
+
+  {
+    description && (
+      <p lang={descriptionLang ?? titleLang} class="mt-1.5 text-[0.94rem] leading-[1.55] text-muted-foreground">
+        {description}
+      </p>
+    )
+  }
+
+  {
+    tagLinks.length > 0 && (
+      <div class="mt-2 flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
+        {tagLinks.map((tagLink) => <Tag tag={tagLink.tag} href={tagLink.href} locale={locale} />)}
+      </div>
+    )
+  }
+</li>

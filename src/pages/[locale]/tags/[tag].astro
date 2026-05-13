@@ -1,0 +1,44 @@
+---
+import PostsTaxonomyPage from '@/components/pages/PostsTaxonomyPage.astro';
+import { nonDefaultLocales, type Locale } from '@/i18n';
+import { getPostTagArchives } from '@/lib/post-taxonomy';
+
+export async function getStaticPaths() {
+  const paths: Array<{
+    params: { locale: Locale; tag: string };
+    props: {
+      locale: Locale;
+      title: string;
+      description: string;
+      posts: Awaited<ReturnType<typeof getPostTagArchives>>[number]['posts'];
+    };
+  }> = [];
+
+  for (const locale of nonDefaultLocales) {
+    const archives = await getPostTagArchives(locale);
+
+    archives.forEach((archive) => {
+      paths.push({
+        params: { locale, tag: archive.slug },
+        props: {
+          locale,
+          title: `#${archive.label}`,
+          description: `Posts tagged ${archive.label}.`,
+          posts: archive.posts,
+        },
+      });
+    });
+  }
+
+  return paths;
+}
+
+const { locale, title, description, posts } = Astro.props as {
+  locale: Locale;
+  title: string;
+  description: string;
+  posts: Awaited<ReturnType<typeof getPostTagArchives>>[number]['posts'];
+};
+---
+
+<PostsTaxonomyPage locale={locale} title={title} description={description} posts={posts} />

@@ -1,17 +1,81 @@
 ---
 /**
- * Tag — plain text with # prefix, muted color.
- * Matches the common blog pattern: #必看 #软件 #Chrome
+ * Tag — colored chip with a stable accent derived from the tag key.
  */
-import { defaultLocale, translateTag } from '@/i18n';
+import { defaultLocale, translateTag, type Locale } from '@/i18n';
 
 interface Props {
   tag: string;
-  locale?: string;
+  locale?: Locale;
+  href?: string;
 }
 
-const { tag, locale = defaultLocale } = Astro.props;
+const { tag, locale = defaultLocale, href } = Astro.props;
 const displayTag = translateTag(tag, locale);
+
+const accentOverrides = new Map<string, string>([
+  ['AI', '#007AFF'],
+  ['IA', '#007AFF'],
+  ['KI', '#007AFF'],
+  ['ИИ', '#007AFF'],
+]);
+
+const accents = [
+  '#2563eb',
+  '#7c3aed',
+  '#0891b2',
+  '#059669',
+  '#d97706',
+  '#dc2626',
+  '#db2777',
+  '#4f46e5',
+  '#0d9488',
+  '#ea580c',
+];
+
+let hash = 0;
+for (let i = 0; i < tag.length; i++) {
+  hash = ((hash << 5) - hash + tag.charCodeAt(i)) | 0;
+}
+const accent = accentOverrides.get(tag.trim().toUpperCase()) ?? accents[Math.abs(hash) % accents.length];
+const chipStyle = `--tag-accent:${accent};`;
 ---
 
-<span class="inline-block text-xs font-mono text-muted-foreground">#{displayTag}</span>
+{
+  href ? (
+    <a href={href} style={chipStyle} class="tag-chip no-underline">
+      #{displayTag}
+    </a>
+  ) : (
+    <span style={chipStyle} class="tag-chip">
+      #{displayTag}
+    </span>
+  )
+}
+
+<style>
+  .tag-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.45rem;
+    padding: 0.16rem 0.5rem;
+    border: 1px solid color-mix(in srgb, var(--tag-accent) 28%, var(--border));
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--tag-accent) 10%, var(--background));
+    color: color-mix(in srgb, var(--tag-accent) 70%, var(--foreground));
+    font-family: var(--font-code);
+    font-size: 0.72rem;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease,
+      color 160ms ease;
+  }
+
+  a.tag-chip:hover {
+    border-color: color-mix(in srgb, var(--tag-accent) 42%, var(--border));
+    background: color-mix(in srgb, var(--tag-accent) 16%, var(--background));
+    color: color-mix(in srgb, var(--tag-accent) 84%, var(--foreground));
+  }
+</style>

@@ -1,0 +1,155 @@
+---
+import type { Locale } from '@/i18n';
+import { getPostsUiCopy } from '@/lib/posts-ui';
+
+interface Props {
+  locale: Locale;
+  sourceTitle?: string;
+  sourcePublication?: string;
+  sourceUrl?: string;
+}
+
+const { locale, sourceTitle, sourcePublication, sourceUrl } = Astro.props as Props;
+const copy = getPostsUiCopy(locale);
+---
+
+<section class="post-source-context" aria-label={copy.sourceEyebrow}>
+  <p class="post-source-context-eyebrow">{copy.sourceEyebrow}</p>
+  <div class="post-source-context-hero">
+    <div>
+      {
+        sourceTitle && (
+          <>
+            <p class="post-source-context-label">{copy.sourceTitleLabel}</p>
+            <p class="post-source-context-title">{sourceTitle}</p>
+          </>
+        )
+      }
+    </div>
+    {
+      sourceUrl && (
+        <a href={sourceUrl} target="_blank" rel="noreferrer" class="post-source-context-link">
+          <span>{copy.sourceLinkAction}</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      )
+    }
+  </div>
+  {
+    sourcePublication && (
+      <dl class="post-source-context-facts">
+        <div class="post-source-context-fact">
+          <dt>{copy.sourcePublicationLabel}</dt>
+          <dd>{sourcePublication}</dd>
+        </div>
+      </dl>
+    )
+  }
+</section>
+
+<style>
+  .post-source-context {
+    margin: 0 0 1.15rem;
+    padding: 1rem 1.05rem 1.08rem;
+    border: 1px solid color-mix(in srgb, var(--border) 92%, transparent);
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--background) 98%, white 2%), var(--background));
+  }
+
+  .post-source-context-eyebrow {
+    margin: 0;
+    color: color-mix(in srgb, var(--muted-foreground) 84%, transparent);
+    font-family: var(--font-code);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .post-source-context-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.72rem;
+  }
+
+  .post-source-context-label {
+    margin: 0;
+    color: color-mix(in srgb, var(--muted-foreground) 88%, transparent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .post-source-context-title {
+    margin: 0.28rem 0 0;
+    color: var(--foreground);
+    font-family: var(--font-serif);
+    font-size: 1.16rem;
+    font-weight: 600;
+    line-height: 1.42;
+  }
+
+  .post-source-context-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.28rem;
+    width: fit-content;
+    color: var(--color-link);
+    font-size: 0.84rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-link) 22%, transparent);
+  }
+
+  .post-source-context-link:hover {
+    color: var(--color-link-hover);
+    border-bottom-color: color-mix(in srgb, var(--color-link-hover) 40%, transparent);
+  }
+
+  .post-source-context-facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 0.85rem 1rem;
+    margin: 0.95rem 0 0;
+    padding-top: 0.9rem;
+    border-top: 1px solid color-mix(in srgb, var(--border) 88%, transparent);
+  }
+
+  .post-source-context-fact dt {
+    margin: 0;
+    color: color-mix(in srgb, var(--muted-foreground) 86%, transparent);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .post-source-context-fact dd {
+    margin: 0.28rem 0 0;
+    color: var(--foreground);
+    font-size: 0.98rem;
+    font-weight: 500;
+    line-height: 1.45;
+    word-break: break-word;
+  }
+
+  @media (min-width: 768px) {
+    .post-source-context {
+      padding: 1.05rem 1.15rem 1.15rem;
+    }
+
+    .post-source-context-hero {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.2rem;
+    }
+
+    .post-source-context-link {
+      margin-top: 0.1rem;
+      flex-shrink: 0;
+    }
+  }
+</style>

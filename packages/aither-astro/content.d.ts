@@ -25,6 +25,9 @@ export type AitherContentSchema<TImage extends SchemaContext['image']> = ZodObje
   category: ZodDefault<ZodString>;
   image: ZodOptional<ReturnType<TImage>>;
   tags: ZodOptional<ZodArray<ZodString>>;
+  sourceTitle: ZodOptional<ZodString>;
+  sourceUrl: ZodOptional<ZodString>;
+  sourcePublication: ZodOptional<ZodString>;
   pinned: ZodDefault<ZodBoolean>;
 }>;
 

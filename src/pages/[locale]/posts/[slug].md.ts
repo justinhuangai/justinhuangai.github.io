@@ -10,7 +10,7 @@ import {
 export async function getStaticPaths() {
   const paths: Array<{
     params: { locale: string; slug: string };
-    props: { locale: Locale; postId: string };
+    props: { locale: Locale; markdownBody: string };
   }> = [];
   for (const locale of nonDefaultLocales) {
     const localePaths = await createMarkdownStaticPaths(locale)();
@@ -24,6 +24,6 @@ export async function getStaticPaths() {
   return paths;
 }
 
-export function GET({ props }: { props: { locale: Locale; postId: string } }) {
-  return createMarkdownResponse(props.postId);
+export function GET({ props }: { props: { locale: Locale; markdownBody: string } }) {
+  return createMarkdownResponse(props.markdownBody);
 }

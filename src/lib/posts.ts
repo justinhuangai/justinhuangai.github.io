@@ -14,10 +14,18 @@ import {
 import { locales, resolveLocale, type Locale } from '@/i18n';
 
 export type LocalizedEntry<K extends CollectionKey> = AitherLocalizedEntry<K>;
-export type PostEntry = AitherPostEntry;
+export interface PostFrontmatterExtensions {
+  sourceTitle?: string;
+  sourceUrl?: string;
+  sourcePublication?: string;
+}
+
+export type PostEntry = Omit<AitherPostEntry, 'data'> & {
+  data: AitherPostEntry['data'] & PostFrontmatterExtensions;
+};
 
 export async function getPostsByLocale(locale: Locale) {
-  return getLocalizedPosts(locale);
+  return (await getLocalizedPosts(locale)) as PostEntry[];
 }
 
 /** Generic: fetch any content collection filtered by locale, sorted by pin + date */

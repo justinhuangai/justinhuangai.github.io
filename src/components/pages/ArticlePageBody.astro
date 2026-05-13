@@ -43,6 +43,7 @@ interface Props {
   descriptionOverride?: string;
   descriptionLang?: string;
   descriptionPrefix?: string;
+  tagHrefs?: Record<string, string>;
 }
 
 const {
@@ -56,6 +57,7 @@ const {
   descriptionOverride,
   descriptionLang,
   descriptionPrefix,
+  tagHrefs = {},
 } = Astro.props as Props;
 const m = getMessages(locale);
 const entryBody = entry.body ?? '';
@@ -68,7 +70,7 @@ const entryReadingTime = readingTime(entryBody);
     <article>
       <div class="mb-4 flex flex-wrap items-center gap-2">
         <CategoryPill category={entry.data.category} locale={locale} />
-        {entry.data.tags?.map((tag) => <Tag tag={tag} locale={locale} />)}
+        {entry.data.tags?.map((tag) => <Tag tag={tag} locale={locale} href={tagHrefs[tag]} />)}
       </div>
 
       <h1 lang={contentLang} class="text-xl sm:text-2xl md:text-[31px] font-semibold mb-4 leading-[1.4] text-[var(--color-link)] break-words">{entry.data.title}</h1>

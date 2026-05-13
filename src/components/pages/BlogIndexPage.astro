@@ -1,14 +1,15 @@
 ---
 import AIAccessList from '@/components/AIAccessList.astro';
 import AudiencePanel from '@/components/AudiencePanel.astro';
-import BlogCard from '@/components/BlogCard.astro';
 import BlogGrid from '@/components/BlogGrid.astro';
 import BlogPagination from '@/components/BlogPagination.astro';
 import ContentSectionHeader from '@/components/ContentSectionHeader.astro';
 import Container from '@/components/Container.astro';
+import PostCard from '@/components/posts/PostCard.astro';
 import { siteConfig } from '@/config/site';
 import Layout from '@/layouts/Layout.astro';
-import { getLocaleBasePath, getMessages, intlLocales, type Locale } from '@/i18n';
+import { getLocaleBasePath, getMessages, htmlLangs, intlLocales, type Locale } from '@/i18n';
+import { buildPostTagLinks } from '@/lib/post-taxonomy';
 import { getSlug, type PostEntry } from '@/lib/posts';
 import { buildWebsiteJsonLd } from '@/lib/site-content';
 
@@ -135,12 +136,17 @@ const audienceCopy = {
           <BlogGrid>
             {
               posts.map((post) => (
-                <BlogCard
+                <PostCard
                   slug={getSlug(post.id)}
                   title={post.data.title}
                   date={post.data.date}
+                  description={post.data.description}
                   basePath={basePath}
                   pinned={post.data.pinned}
+                  locale={locale}
+                  titleLang={htmlLangs[locale]}
+                  descriptionLang={htmlLangs[locale]}
+                  tagLinks={buildPostTagLinks(post, locale)}
                 />
               ))
             }

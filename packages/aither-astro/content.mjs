@@ -23,6 +23,16 @@ export function createAitherContentSchema({ image }) {
     category: z.string().default('General'),
     image: image().optional(),
     tags: z.array(z.string()).optional(),
+    sourceTitle: z.string().optional(),
+    sourceUrl: z
+      .string()
+      .refine(
+        (value) =>
+          value.startsWith('/') || z.url().safeParse(value).success,
+        'sourceUrl must be an absolute URL or a site-relative path',
+      )
+      .optional(),
+    sourcePublication: z.string().optional(),
     pinned: z.boolean().default(false),
   });
 }

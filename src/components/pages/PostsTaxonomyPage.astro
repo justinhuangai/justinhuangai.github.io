@@ -1,0 +1,78 @@
+---
+import BlogGrid from '@/components/BlogGrid.astro';
+import ContentSectionHeader from '@/components/ContentSectionHeader.astro';
+import Container from '@/components/Container.astro';
+import PostCard from '@/components/posts/PostCard.astro';
+import { siteConfig } from '@/config/site';
+import { getLocaleBasePath, getMessages, htmlLangs, intlLocales, type Locale } from '@/i18n';
+import Layout from '@/layouts/Layout.astro';
+import { buildPostTagLinks } from '@/lib/post-taxonomy';
+import { getSlug, type PostEntry } from '@/lib/posts';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description?: string;
+  posts: PostEntry[];
+}
+
+const { locale, title, description, posts } = Astro.props as Props;
+const m = getMessages(locale);
+const basePath = getLocaleBasePath(locale);
+const countLabel = m.blog.totalPosts.replace(
+  '{count}',
+  new Intl.NumberFormat(intlLocales[locale]).format(posts.length),
+);
+---
+
+<Layout title={`${title} | ${siteConfig.name}`} description={description}>
+  <section class="content-index-zone">
+    <Container class="px-4">
+      <div class="content-index-shell">
+        <ContentSectionHeader title={title} countLabel={countLabel} headingAs="h1" countStyle="sharp" />
+        <BlogGrid>
+          {
+            posts.map((post) => (
+              <PostCard
+                slug={getSlug(post.id)}
+                title={post.data.title}
+                date={post.data.date}
+                description={post.data.description}
+                basePath={basePath}
+                locale={locale}
+                titleLang={htmlLangs[locale]}
+                descriptionLang={htmlLangs[locale]}
+                tagLinks={buildPostTagLinks(post, locale)}
+              />
+            ))
+          }
+        </BlogGrid>
+      </div>
+    </Container>
+  </section>
+</Layout>
+
+<style>
+  .content-index-zone {
+    background: var(--background);
+    padding-block: 0.01rem 2.5rem;
+  }
+
+  .content-index-shell {
+    margin-top: 2.1rem;
+  }
+
+  .content-index-shell :global(.blog-grid) {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    margin-bottom: 1.95rem;
+    border-radius: 0;
+  }
+
+  @media (min-width: 992px) {
+    .content-index-shell {
+      margin-top: 2.8rem;
+    }
+  }
+</style>
