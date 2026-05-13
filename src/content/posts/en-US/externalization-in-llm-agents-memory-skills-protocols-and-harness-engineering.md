@@ -119,7 +119,7 @@ There is also an evaluation problem. If agent capability is distributed across t
 
 That is the point worth keeping. The paper is not saying that externalization solves everything. It says reliable agency is a joint product of model and environment.
 
-## My takeaway
+## Practical takeaway
 
 The paper can be compressed into one practical sentence:
 
@@ -127,7 +127,7 @@ The paper can be compressed into one practical sentence:
 
 Not because models stopped mattering, but because models now operate inside a larger cognitive system. Memory extends them across time. Skills stabilize procedure. Protocols impose interaction order. Harnesses make the whole thing observable, permissioned, and recoverable.
 
-When evaluating an agent system, I would therefore ask less “which model does it use?” and more:
+When evaluating an agent system, the better question is less “which model does it use?” and more:
 
 - What state has it externalized?
 - What reusable skills does it carry?

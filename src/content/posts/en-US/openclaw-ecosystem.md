@@ -107,4 +107,4 @@ After the tide goes out, four things will determine its fate:
 3. **Is the non-founder contribution share growing?** This determines whether it's a "star project" or a "sustainable platform."
 4. **Is the governance structure clear?** This determines whether it can evolve from a hype-driven project into long-term infrastructure.
 
-I'll keep tracking this.
+This direction is worth continued tracking.

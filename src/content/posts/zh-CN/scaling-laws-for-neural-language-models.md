@@ -236,7 +236,7 @@ def critical_batch_size(loss: float, b_star: float, l_star: float) -> float:
 
 很多团队全程用固定的批大小训练。缩放定律告诉你：应该随着训练推进逐步加大：开始用小批量，模型变强后再加机器。
 
-## 7. 我的思考
+## 7. 几点观察
 
 读完这篇论文，有几点感受。
 

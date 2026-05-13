@@ -2,7 +2,7 @@
 title: "Attention Is All You Need: The Transformer Blueprint"
 date: "2026-01-06T16:18:46+08:00"
 category: "Paper Reading"
-description: Sharing my understanding of the Transformer paper, with real Python code examples
+description: A study note on the Transformer paper, with real Python code examples
 tags: [paper-reading, transformer, AI, LLM, python]
 pinned: false
 ---
@@ -17,7 +17,7 @@ Eight authors, seven companies, spanning AI, blockchain, and biotech.
 
 Nearly nine years later, ChatGPT, Claude, DeepSeek, Qwen -- the underlying architecture of these AI products can almost all be traced back to those 15 pages.
 
-This post is my understanding after reading the paper, with real Python code examples. It is not a translation, not a summary. You do not need a technical background to follow along.
+This post is a study note on the paper, with real Python code examples. It is not a translation and not just a summary. You do not need a technical background to follow along.
 
 ## 1. The One-Sentence Version
 
@@ -263,15 +263,15 @@ With the architecture designed, how do you train it? The paper put real thought 
 
 **Results**: the paper uses BLEU scores (a standard metric for machine translation, measuring how close the machine output is to human translation, with a maximum of 100) to evaluate performance. English-to-German: 28.4. English-to-French: 41.8. Both set new records at the time. Training cost was one to two orders of magnitude lower than previous approaches. Faster, stronger, cheaper.
 
-## 7. My Takeaways
+## 7. Takeaways
 
-After reading this paper, a few things stand out.
+From today's perspective, a few things stand out.
 
-First, the core insight of this paper is remarkably concise: throw away the baggage of sequential processing and let the attention mechanism directly model the relationship between any two positions. Self-Attention, residual connections, Layer Normalization -- none of these were new inventions. The real breakthrough was not inventing new tools, but the authors' willingness to bet that "these simple building blocks, assembled together, are enough" -- and then proving themselves right with experiments.
+First, the core insight of this paper is concise: throw away the baggage of sequential processing and let the attention mechanism directly model the relationship between any two positions. Self-Attention, residual connections, Layer Normalization -- none of these were new inventions. The key move was to assemble existing building blocks into a stable, trainable system and validate that route experimentally.
 
-Second, writing it out in real Python gave me a deeper understanding of every design decision. When you write Scaled Dot-Product Attention yourself, you feel viscerally why that sqrt(d_k) scaling matters. When you implement masking, you understand exactly where the autoregressive generation constraint comes from. Reading the paper ten times is not worth as much as writing it once yourself.
+Second, writing the key modules in real Python makes each design decision more concrete. When you write Scaled Dot-Product Attention yourself, you see why that sqrt(d_k) scaling matters. When you implement masking, you understand exactly where the autoregressive generation constraint comes from. For engineering readers, reading the paper and writing the implementation belong together.
 
-Third, what truly struck me was not how many models it later spawned, but the fact that it reframed the problem back in 2017: from "how do we remember a sentence in order" to "how do we let every position directly find the information it needs most." GPT, BERT, T5, LLaMA -- all of them are products of that reframing.
+Third, the most important point is not how many models it later spawned, but the fact that it reframed the problem back in 2017: from "how do we remember a sentence in order" to "how do we let every position directly find the information it needs most." GPT, BERT, T5, LLaMA -- all of them are products of that reframing.
 
 How far a sufficiently good architecture can go depends on how many people are willing to keep building on it.
 

@@ -237,7 +237,7 @@ The paper dedicates an entire section (Section 6) to societal impact, covering t
 
 **Energy Consumption**: training GPT-3 requires massive compute, and the paper cites estimates but does not disclose specific energy figures. However, it points out that once trained, the model can be applied to many different tasks, making it more energy-efficient than training a separate model for each task.
 
-## 9. My Takeaways
+## 9. Takeaways
 
 After reading this paper, a few things stand out.
 

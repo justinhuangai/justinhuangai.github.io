@@ -15,7 +15,7 @@ Your conversations, your data, your context -- all of it ends up on someone else
 
 What it's trying to do is not build yet another smarter chatbot, but put AI capabilities back in the user's hands: running on your own machine, plugged into the chat tools you already use, keeping data, context, and control with you.
 
-I went through its codebase: over 200,000 lines of TypeScript, covering native apps for macOS, iOS, and Android, plus more than 50 skill modules.
+The codebase is not small: over 200,000 lines of TypeScript, covering native apps for macOS, iOS, and Android, plus more than 50 skill modules.
 
 ![Chatting with Clawd on WhatsApp](/images/whatsapp-clawd.webp)
 
@@ -37,7 +37,7 @@ The capabilities that should be there are there; the things that shouldn't be cr
 
 That kind of restraint is harder than "doing a little of everything," and it says a lot.
 
-So I'd say Clawdbot is worth watching, not just because it's a well-crafted open-source project, but because it represents a rare yet increasingly important direction:
+Clawdbot is worth watching, not just because it's a well-crafted open-source project, but because it represents a rare yet increasingly important direction:
 
 Not plugging everyone into the same AI platform,
 but letting everyone own their own AI system.

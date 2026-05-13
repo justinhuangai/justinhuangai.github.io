@@ -173,7 +173,7 @@ The more critical finding is in the paper's Figure 2: as sentence length increas
 
 The paper also visualized the attention weights. In English-to-French translation, the attention weights nearly formed a diagonal line, showing that the model had automatically learned that "English word 1 corresponds to French word 1, English word 2 corresponds to French word 2." When word order differed (for instance, French adjectives placed after nouns), the attention weights shifted accordingly. The model learned all of this without any manual alignment annotations.
 
-## 6. My Takeaways
+## 6. Takeaways
 
 After reading this paper, a few things stand out.
 

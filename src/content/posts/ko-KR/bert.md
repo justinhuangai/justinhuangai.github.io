@@ -229,7 +229,7 @@ Pre-training에는 며칠이 걸릴 수 있지만, fine-tuning은 보통 수 분
 
 **Dropout**: 모든 레이어에서 0.1. 활성화 함수는 원래 Transformer의 ReLU 대신 GELU (Gaussian Error Linear Unit)를 사용.
 
-## 8. 나의 소감
+## 8. 주요 관찰
 
 이 논문을 읽고 나서 몇 가지 인상적인 점이 있다.
 

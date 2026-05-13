@@ -168,7 +168,7 @@ source_tensor = torch.tensor([reversed_source], dtype=torch.long)
 
 **批次最佳化**：把長度相近的句子放在同一個批次裡，避免短句子為長句子「陪跑」浪費計算資源，帶來了 2 倍的訓練加速。
 
-## 7. 我的思考
+## 7. 幾點觀察
 
 讀完這篇論文，有幾個感受。
 

@@ -229,7 +229,7 @@ BERT 最优雅的地方在于微调的简单性。预训练完成后，不管什
 
 **Dropout**：所有层的 dropout 率为 0.1。激活函数用的是 GELU（Gaussian Error Linear Unit），而不是 Transformer 原版的 ReLU。
 
-## 8. 我的思考
+## 8. 几点观察
 
 读完这篇论文，有几个感受。
 

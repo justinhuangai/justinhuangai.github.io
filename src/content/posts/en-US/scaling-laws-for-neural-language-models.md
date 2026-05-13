@@ -73,7 +73,7 @@ The exponents tell a story. Dataset size (α = 0.095) yields the most improvemen
 
 ## 3. Within the Tested Range, Architecture Shape Matters Less Than Scale
 
-Here is where the paper surprised everyone.
+Here is where the paper makes the key point explicit.
 
 The team tested Transformers with different depths (number of layers), widths (hidden dimension), attention heads, and feed-forward dimensions. Within the range of Transformer shapes they tested, as long as the total non-embedding parameter count was similar, performance differences were remarkably small.
 
@@ -201,7 +201,7 @@ def critical_batch_size(loss: float, b_star: float, l_star: float) -> float:
 
 This is practical engineering wisdom. Many teams train with a fixed batch size throughout. The scaling laws say you should increase it as training progresses — start small, scale up as the model gets better.
 
-## 7. My Takeaways
+## 7. Takeaways
 
 After reading this paper, a few things stand out.
 

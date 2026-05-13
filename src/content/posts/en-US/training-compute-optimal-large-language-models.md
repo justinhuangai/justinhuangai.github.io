@@ -212,13 +212,13 @@ def inference_cost_comparison() -> tuple[float, float]:
     return daily_cost_gopher, daily_cost_chinchilla
 ```
 
-## 8. My Takeaways
+## 8. Takeaways
 
 First, this paper is a correction — and a graceful one. It takes Kaplan et al.'s framework, identifies a methodological flaw (fixed learning rate schedules), fixes it, and arrives at a different answer. It does not dismiss the earlier work; it builds on it. The parametric loss function L̂(N, D) = E + A/N^α + B/D^β is a refinement of Kaplan's formulation, not a replacement. Science at its best is exactly this: someone does careful work, someone else does more careful work, and the field moves forward.
 
-Second, the paper's most surprising finding is not the math — it is the gap between theory and practice. Everyone in the industry could see that 300 billion tokens was becoming a default. Nobody questioned it seriously until this team ran the numbers. The models were not small; they were starved. The solution was not to build bigger — it was to feed more.
+Second, the paper's most important finding is not the math — it is the gap between theory and practice. Everyone in the industry could see that 300 billion tokens was becoming a default. Nobody questioned it seriously until this team ran the numbers. The models were not small; they were starved. The solution was not to build bigger — it was to feed more.
 
-Third, the equal-scaling result (a ≈ b ≈ 0.5) is beautiful in its simplicity. There is no asymmetry between model size and data. If you have more compute, scale both equally. No complicated allocation strategy needed. "Where should I spend my next dollar of compute?" Chinchilla's answer is not to keep betting on parameter count alone, but to let model size and training data grow at approximately the same rate.
+Third, the equal-scaling result (a ≈ b ≈ 0.5) is clean in its symmetry. There is no asymmetry between model size and data. If you have more compute, scale both equally. No complicated allocation strategy needed. "Where should I spend my next dollar of compute?" Chinchilla's answer is not to keep betting on parameter count alone, but to let model size and training data grow at approximately the same rate.
 
 Fourth, the practical legacy is enormous. Before Chinchilla, the path to better AI was "make it bigger." After Chinchilla, the path became "train it better." This one shift made powerful models accessible to organizations that could not afford the largest parameter counts but could curate large datasets. LLaMA, Mistral, and the entire open-source LLM ecosystem owe a direct debt to this insight.
 

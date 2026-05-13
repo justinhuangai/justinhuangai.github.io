@@ -218,7 +218,7 @@ The paper also ran ablation experiments on model size and found an important con
 
 **Dropout**: 0.1 across all layers. The activation function is GELU (Gaussian Error Linear Unit), rather than the original Transformer's ReLU.
 
-## 8. My Takeaways
+## 8. Takeaways
 
 After reading this paper, a few things stand out.
 

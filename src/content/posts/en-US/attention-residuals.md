@@ -63,7 +63,7 @@ The core idea of AttnRes is just one sentence:
 
 The most important thing about this report is not that it proposes a new formula. It is that it turns something everyone had gotten used to back into a problem.
 
-Standard residual connections have long been treated as optimization infrastructure. As long as gradients can pass through, the mechanism is considered to have done its job. But from the perspective of information flow, that path is surprisingly crude.
+Standard residual connections have long been treated as optimization infrastructure. As long as gradients can pass through, the mechanism is considered to have done its job. But from the perspective of information flow, that path is quite crude.
 
 Imagine you are working on a document that keeps being revised. At each round, instead of selecting the most relevant parts of older versions and merging them thoughtfully, you just append the full text of every previous draft to the end. By revision 20, the important insights from revision 3 are still technically there, but they are buried inside an ever-thickening pile.
 
@@ -75,7 +75,7 @@ That is the PreNorm problem the report highlights. It builds on observations fro
 
 The report calls this `PreNorm dilution`. It is an excellent name. The problem is not that gradients vanish, nor that training explodes. It is that each layer's relative contribution gets progressively washed out.
 
-There is a line of reasoning under the surface here that I really like: along the sequence dimension, we stopped being satisfied with "treat every past token the same" a long time ago. That is why attention exists. So why are we still willing to accept "sum every previous layer with equal weight" along the depth dimension?
+There is a line of reasoning under the surface here worth making explicit: along the sequence dimension, we stopped being satisfied with "treat every past token the same" a long time ago. That is why attention exists. So why are we still willing to accept "sum every previous layer with equal weight" along the depth dimension?
 
 ## 3. What AttnRes Actually Does
 
@@ -128,7 +128,7 @@ def attention_residual(
     return (weights.unsqueeze(-1) * values).sum(dim=0)
 ```
 
-At first glance, this looks like "put attention on top of residuals." But I think a more accurate description is:
+At first glance, this looks like "put attention on top of residuals." A more accurate description is:
 
 **It turns the residual connection from a fixed accumulator into a selective depth retriever.**
 
@@ -173,7 +173,7 @@ That comparison says a lot. Block AttnRes is not "as cheap as a standard residua
 - training wall-clock overhead is below 4%
 - inference latency overhead is below 2%
 
-That is why this reads like a real systems-minded technical report to me. A lot of papers have new ideas and fuzzy accounting. This one cares about the accounting.
+That is why this reads like a real systems-minded technical report. A lot of papers have new ideas and fuzzy accounting. This one cares about the accounting.
 
 ## 5. What Matters Most in the Experiments
 
@@ -226,7 +226,7 @@ After pretraining, AttnRes is no worse than the baseline on all listed evaluatio
 - HumanEval: `59.1 -> 62.2`
 - C-Eval: `79.6 -> 82.5`
 
-The most interesting part is that gains are larger on tasks like GPQA, Math, and HumanEval, where multi-step reasoning or program synthesis matter more. The report's explanation is that if later layers can retrieve earlier-layer representations more selectively, compositional tasks benefit more. I think that explanation makes sense.
+The most interesting part is that gains are larger on tasks like GPQA, Math, and HumanEval, where multi-step reasoning or program synthesis matter more. The report's explanation is that if later layers can retrieve earlier-layer representations more selectively, compositional tasks benefit more. That explanation makes sense.
 
 Complex reasoning is often not limited by missing information. It is limited by important information getting buried deep inside the network.
 
@@ -256,7 +256,7 @@ Some of the most interesting takeaways:
 - **An input-dependent query version reaches 1.731, even better than Full AttnRes.**  
   This is especially interesting. It means the pseudo-query design in the report is not the performance ceiling. It is a compromise chosen to make infrastructure optimizations easier. In other words, the authors are not unaware of stronger variants. They are deliberately choosing a more scalable one.
 
-That is one reason I like this report. When you read the main text, the ablations, and the systems section together, you can see the real trade-off clearly: the goal is not blindly minimizing loss at any cost. The goal is something strong enough, while still trainable in practice.
+That is one reason this report is useful. When you read the main text, the ablations, and the systems section together, you can see the real trade-off clearly: the goal is not blindly minimizing loss at any cost. The goal is something strong enough, while still trainable in practice.
 
 ## 7. How to Read This Report
 
@@ -305,7 +305,7 @@ Then *Attention Residuals* asks:
 
 That question alone is already valuable.
 
-I do not know whether AttnRes will become a default configuration in a few years the way PreNorm did. But I am quite sure this technical report turns residual connections back into something worth thinking about, designing, and optimizing.
+Whether AttnRes becomes a default configuration in a few years the way PreNorm did remains open. What this technical report already does is turn residual connections back into something worth thinking about, designing, and optimizing.
 
 People used to say attention rewrote sequence modeling.
 

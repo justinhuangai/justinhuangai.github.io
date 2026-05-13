@@ -99,7 +99,7 @@ The paper identified three design choices with major impact on performance:
 
 **Second, use deep LSTMs.** The paper used 4-layer LSTMs, with each additional layer reducing perplexity by nearly 10%. Shallow LSTMs (1-2 layers) performed significantly worse. Depth gave the model a larger representational space.
 
-**Third, reverse the source sentence.** This was the paper's most surprising finding. Reversing the source sentence "a, b, c" to "c, b, a" before feeding it to the encoder bumped the BLEU score from 25.9 to 30.6 -- an improvement of nearly 5 points.
+**Third, reverse the source sentence.** This was the paper's most counterintuitive finding. Reversing the source sentence "a, b, c" to "c, b, a" before feeding it to the encoder bumped the BLEU score from 25.9 to 30.6 -- an improvement of nearly 5 points.
 
 Why does reversal help? The paper's explanation: in normal order, the first word of the source sentence is far from the first word of the target sentence (the entire source sentence sits in between). After reversal, the first few words of the source and target sentences are temporally close, creating more "short-range dependencies" for the gradient (the signal the model uses to adjust its parameters), making optimization easier.
 
@@ -157,11 +157,11 @@ This at least suggests that the encoder's learned representations go beyond simp
 
 **Batch optimization**: sentences of similar length were grouped into the same batch, preventing short sentences from wasting compute cycles while "waiting" for long sentences. This yielded a 2x training speedup.
 
-## 7. My Takeaways
+## 7. Takeaways
 
 After reading this paper, a few things stand out.
 
-First, this paper had great ambition but a simple method. One LSTM reads, another LSTM writes, and all information passes through a single vector in between. No attention, no complex alignment mechanism, not even any prior assumptions about language structure. And then it actually worked, with results strong enough to compete with carefully tuned traditional systems. The lesson: given sufficient data and compute, simple end-to-end methods can be surprisingly powerful.
+First, this paper had a broad goal but a simple method. One LSTM reads, another LSTM writes, and all information passes through a single vector in between. No attention, no complex alignment mechanism, not even any prior assumptions about language structure. The result was strong enough to compete with carefully tuned traditional systems. The lesson: given sufficient data and compute, simple end-to-end methods can be very powerful.
 
 Second, the source reversal finding is quite instructive. It is not an elegant solution -- more of a hack. But it revealed a fundamental limitation of RNNs: sensitivity to the distance between elements in a sequence. Bahdanau's attention mechanism let the model "skip around," no longer constrained by distance. The Transformer went further, abandoning sequential processing entirely, making the distance between any two positions always 1. From reversal to attention to Transformer -- three generations of solutions to the same problem.
 
