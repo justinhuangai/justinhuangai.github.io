@@ -33,6 +33,10 @@ LLM Agent 也正在經歷類似的轉變。
 
 **weights → context → harness**
 
+![作者理解圖：LLM Agent 的認知外部化地圖](/images/posts/externalization-in-llm-agents/cognitive-externalization-map.webp)
+
+*作者使用 AI 生成的概念圖，不是論文原圖。它總結了本文對認知外部化的理解：模型能力從 weights，經由 context，逐步進入 memory、skills、protocols 和 governance 等 harness-level infrastructure。*
+
 這個概括很有用，因為它符合真實系統的手感。模型仍然重要，但它不再獨自承擔整個任務。它被放進一個會記住、會檢索、會約束、會審計、會失敗恢復的環境裡。
 
 換句話說，可靠性不只是模型屬性，也是任務如何被外部化的結果。

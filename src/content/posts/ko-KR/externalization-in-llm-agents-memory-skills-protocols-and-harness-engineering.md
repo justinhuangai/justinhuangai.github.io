@@ -33,6 +33,10 @@ LLM Agent도 비슷한 이동을 겪고 있다.
 
 **weights → context → harness**
 
+![LLM Agent의 인지적 외부화에 대한 저자의 개념 지도](/images/posts/externalization-in-llm-agents/cognitive-externalization-map.webp)
+
+*저자가 AI로 생성한 개념도이며 논문 원본 그림이 아니다. 이 글의 해석을 요약하면 모델 능력은 weights에서 context를 거쳐 memory, skills, protocols, governance 같은 harness-level infrastructure로 이동한다.*
+
 이 프레이밍이 좋은 이유는 실제 시스템의 감각과 맞기 때문이다. 모델은 여전히 중요하다. 하지만 모델이 더 이상 전체 작업을 혼자 들고 있지는 않다. 모델은 기억하고, 검색하고, 제한하고, 감사하고, 실패에서 복구하는 환경 안에서 동작한다.
 
 즉 신뢰성은 모델의 속성일 뿐 아니라, 작업이 어떻게 외부화되었는지의 결과이기도 하다.
