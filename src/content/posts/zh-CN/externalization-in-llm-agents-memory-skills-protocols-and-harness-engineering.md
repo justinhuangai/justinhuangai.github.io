@@ -33,13 +33,11 @@ LLM Agent 也是这样。
 
 **weights → context → harness**
 
-![作者理解图：LLM Agent 的认知外部化地图](/images/posts/externalization-in-llm-agents/cognitive-externalization-map.webp)
+![LLM Agent 的认知外部化地图](/images/posts/externalization-in-llm-agents/cognitive-externalization-map.webp)
 
-*作者使用 AI 生成的概念图，不是论文原图。它总结了本文对认知外部化的理解：模型能力从 weights，经由 context，逐步进入 memory、skills、protocols 和 governance 等 harness-level infrastructure。*
+这张图表达的是一条工程主线：能力不是只放在模型权重里。早期系统更多依赖 weights；上下文工程成熟之后，任务可以在 context 里被临时组织；到了 Agent，长期可靠性必须落到 harness。Memory 保存状态，skills 沉淀流程，protocols 规范工具和 Agent 之间的交互，governance 处理权限、审计和失败恢复。
 
-这个概括很准确。因为 Agent 工程的重心确实在外移。不是模型不重要，而是模型越来越少单独承担整个任务。它被放进一个会记住、会检索、会约束、会审计、会恢复失败的环境里。
-
-换句话说，可靠性不是只从模型里长出来的。可靠性也来自任务被重新表示。
+因此，Agent 的关键问题不只是模型有多强，而是外部运行环境能不能把任务稳定地表示、约束和恢复。
 
 ## Memory：把时间搬到模型外面
 

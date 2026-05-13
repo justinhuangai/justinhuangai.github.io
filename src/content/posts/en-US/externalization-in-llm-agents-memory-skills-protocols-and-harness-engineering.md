@@ -33,13 +33,11 @@ The paper compresses that arc into:
 
 **weights → context → harness**
 
-![Author's conceptual map of cognitive externalization in LLM agents](/images/posts/externalization-in-llm-agents/cognitive-externalization-map.webp)
+![Cognitive externalization map for LLM agents](/images/posts/externalization-in-llm-agents/cognitive-externalization-map.webp)
 
-*AI-generated conceptual diagram by the author; not from the paper. It summarizes this article's reading of cognitive externalization: model capability moves from weights, through context, into harness-level infrastructure such as memory, skills, protocols, and governance.*
+The diagram makes one engineering claim: capability should not live only inside model weights. Earlier systems leaned on weights; context engineering made a run temporarily organizable; practical agents need a harness for long-term reliability. Memory preserves state, skills capture procedures, protocols structure tool and agent interactions, and governance handles permissions, auditing, and failure recovery.
 
-That framing is useful because it matches what real systems feel like. The model still matters, but it no longer carries the entire task alone. It operates inside an environment that remembers, retrieves, constrains, audits, and recovers.
-
-Reliability, in this view, is not only a property of the model. It is also a property of how the task has been externalized.
+The key question is therefore not just how strong the model is, but whether the external runtime can represent, constrain, and recover the task reliably.
 
 ## Memory externalizes time
 
