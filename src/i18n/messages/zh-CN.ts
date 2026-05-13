@@ -29,7 +29,7 @@ export const zhCn = {
     of: '/',
   },
   footer: {
-    tagline: '一个相信文字本身就很美的 AI 原生 Astro 主题。',
+    tagline: '个人博客。',
     rightsReserved: '保留所有权利。',
     navigate: '导航',
     subscribe: '订阅',

@@ -29,7 +29,7 @@ export const zhTw = {
     of: '/',
   },
   footer: {
-    tagline: '一個相信文字本身就很美的 AI 原生 Astro 主題。',
+    tagline: '個人部落格。',
     rightsReserved: '保留所有權利。',
     navigate: '導航',
     subscribe: '訂閱',

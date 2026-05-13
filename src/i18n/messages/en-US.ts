@@ -29,7 +29,7 @@ export const en = {
     of: 'of',
   },
   footer: {
-    tagline: 'An AI-native Astro theme built around beautiful text.',
+    tagline: 'Personal blog.',
     rightsReserved: 'All Rights Reserved.',
     navigate: 'Navigate',
     subscribe: 'Subscribe',

@@ -29,7 +29,7 @@ export const ko = {
     of: '/',
   },
   footer: {
-    tagline: '텍스트 자체가 아름답다고 믿는 AI 네이티브 Astro 테마.',
+    tagline: '개인 블로그.',
     rightsReserved: 'All Rights Reserved.',
     navigate: '탐색',
     subscribe: '구독',
