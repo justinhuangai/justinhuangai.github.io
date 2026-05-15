@@ -31,8 +31,6 @@ By mid-2025, he wrote on his blog: the spark was back. AI had moved past the dem
 
 In late January 2026, Anthropic sent a trademark warning -- the name was too close to Claude. Within three days it went from Clawdbot to Moltbot (Molt = molting) to OpenClaw. The renaming itself blew up -- 34,000 new stars in 48 hours.
 
-A person who has produced nine-figure results chose to pour his energy into an MIT-licensed open-source project. Whatever the motivation, that choice alone deserves a serious look.
-
 ## 2. Not Just a Project -- It's Growing an Ecosystem
 
 For most viral open-source projects, "ecosystem" basically means: a roadmap in the docs plus a few placeholder repos.
