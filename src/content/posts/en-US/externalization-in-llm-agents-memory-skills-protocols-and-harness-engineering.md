@@ -67,7 +67,7 @@ Software agents make this especially concrete.
 
 A model may know how to edit code, run tests, inspect logs, and write a pull request summary. Reliable execution still depends on local procedure: which files to read first, how to preserve user changes, when to use `rg`, when to run a full validation pass, how to handle an existing staging area, and which commands are too destructive to run casually.
 
-If all of that is left for the model to rediscover in every session, behavior drifts. When it is externalized as a skill, the task changes from improvising a workflow to selecting and following a validated one.
+If all of that is left for the model to rediscover in every session, the agent's behavior is more likely to drift. Externalizing it as a skill means the task is no longer to improvise a workflow, but to select and follow a validated one.
 
 That is why skills are easy to underestimate. They are not flashy, but they reduce variance.
 
