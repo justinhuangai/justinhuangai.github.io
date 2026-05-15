@@ -19,7 +19,7 @@ pinned: false
 
 LLM Agent 也是这样。
 
-![论文 Figure 1：LLM Agent 设计中的外部化主线](/images/posts/externalization-in-llm-agents/figure-1-externalization-overview.png)
+![论文 Figure 1：LLM Agent 设计中的外部化主线](/images/posts/externalization-in-llm-agents/figure-1-externalization-overview.webp)
 
 *Figure 1, from Zhou et al., [arXiv:2604.08224](https://arxiv.org/abs/2604.08224), [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), format-converted for web display, content unchanged.*
 
@@ -59,7 +59,7 @@ Memory 系统把这个问题从“模型能不能凭空回忆”改写成“模�
 
 这和工具调用不是同一层抽象。工具提供动作，protocol 规定动作如何被描述和调用，skill 则封装“如何把这些动作组织成一件事”。
 
-![论文 Figure 5：技能作为外部化的过程性知识](/images/posts/externalization-in-llm-agents/figure-5-skills-lifecycle.png)
+![论文 Figure 5：技能作为外部化的过程性知识](/images/posts/externalization-in-llm-agents/figure-5-skills-lifecycle.webp)
 
 *Figure 5, from Zhou et al., [arXiv:2604.08224](https://arxiv.org/abs/2604.08224), [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), reproduced unchanged.*
 
@@ -87,7 +87,7 @@ Protocol 的作用，是把含糊交互变成机器可读的契约。工具如�
 
 Harness 不是薄薄一层 wrapper。它是 Agent 真正运行的认知环境：控制循环、上下文预算、工具权限、沙箱隔离、人工审批、日志观察、失败恢复、子 Agent 编排，都在这里发生。
 
-![论文 Figure 3：Harnessed LLM Agent 的外部化架构](/images/posts/externalization-in-llm-agents/figure-3-harnessed-agent-architecture.png)
+![论文 Figure 3：Harnessed LLM Agent 的外部化架构](/images/posts/externalization-in-llm-agents/figure-3-harnessed-agent-architecture.webp)
 
 *Figure 3, from Zhou et al., [arXiv:2604.08224](https://arxiv.org/abs/2604.08224), [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), reproduced unchanged.*
 

@@ -7,7 +7,7 @@
     "predev": "pnpm dev:directory-search",
     "dev": "astro dev",
     "dev:directory-search": "node ./scripts/build-directory-pagefind.mjs --output public/pagefind",
-    "check:content": "node scripts/check-post-coverage.mjs && node scripts/check-post-math-markup.mjs",
+    "check:content": "node scripts/check-post-coverage.mjs && node scripts/check-post-math-markup.mjs && node scripts/check-content-image-formats.mjs",
     "check:agent": "node scripts/smoke-agent-protocol.mjs",
     "check": "astro check",
     "typecheck": "tsc --noEmit",

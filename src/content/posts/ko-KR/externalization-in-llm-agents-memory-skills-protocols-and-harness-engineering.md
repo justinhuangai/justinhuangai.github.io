@@ -19,7 +19,7 @@ Agent 이야기는 자주 모델 순위로 돌아간다.
 
 LLM Agent도 비슷한 이동을 겪고 있다.
 
-![논문 Figure 1: LLM Agent 설계 원리로서의 외부화](/images/posts/externalization-in-llm-agents/figure-1-externalization-overview.png)
+![논문 Figure 1: LLM Agent 설계 원리로서의 외부화](/images/posts/externalization-in-llm-agents/figure-1-externalization-overview.webp)
 
 *Figure 1, from Zhou et al., [arXiv:2604.08224](https://arxiv.org/abs/2604.08224), [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), format-converted for web display, content unchanged.*
 
@@ -59,7 +59,7 @@ Agent에게 memory는 사용자 선호, 프로젝트 규칙, 과거 결정, 실�
 
 이는 tool use와 다른 추상화 계층이다. Tool은 action을 제공한다. Protocol은 action이 어떻게 발견되고 호출되는지 정의한다. Skill은 그 action들을 어떻게 조직해 반복 가능한 작업으로 만들지를 담는다.
 
-![논문 Figure 5: 외부화된 절차적 전문성으로서의 skills](/images/posts/externalization-in-llm-agents/figure-5-skills-lifecycle.png)
+![논문 Figure 5: 외부화된 절차적 전문성으로서의 skills](/images/posts/externalization-in-llm-agents/figure-5-skills-lifecycle.webp)
 
 *Figure 5, from Zhou et al., [arXiv:2604.08224](https://arxiv.org/abs/2604.08224), [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), reproduced unchanged.*
 
@@ -87,7 +87,7 @@ Protocol은 모호한 상호작용을 machine-readable contract로 바꾼다. To
 
 Harness는 모델 주변의 얇은 wrapper가 아니다. Agent가 실제로 동작하는 인지 환경이다. control loop, context budget, permission model, sandbox, human approval, log, evaluation hook, failure recovery, sub-agent orchestration이 여기서 작동한다.
 
-![논문 Figure 3: harnessed LLM agent의 외부화 아키텍처](/images/posts/externalization-in-llm-agents/figure-3-harnessed-agent-architecture.png)
+![논문 Figure 3: harnessed LLM agent의 외부화 아키텍처](/images/posts/externalization-in-llm-agents/figure-3-harnessed-agent-architecture.webp)
 
 *Figure 3, from Zhou et al., [arXiv:2604.08224](https://arxiv.org/abs/2604.08224), [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), reproduced unchanged.*
 

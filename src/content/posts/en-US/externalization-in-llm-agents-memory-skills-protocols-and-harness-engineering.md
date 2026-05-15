@@ -19,7 +19,7 @@ That is why the key word is `externalization`. The paper is not just describing 
 
 The paper argues that serious LLM agents are moving through the same kind of representational shift.
 
-![Figure 1 from the paper: externalization as the organizing principle of LLM agent design](/images/posts/externalization-in-llm-agents/figure-1-externalization-overview.png)
+![Figure 1 from the paper: externalization as the organizing principle of LLM agent design](/images/posts/externalization-in-llm-agents/figure-1-externalization-overview.webp)
 
 *Figure 1, from Zhou et al., [arXiv:2604.08224](https://arxiv.org/abs/2604.08224), [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), format-converted for web display, content unchanged.*
 
@@ -59,7 +59,7 @@ A skill is not simply “the model can call a tool.” A skill is reusable proce
 
 That is a different layer from tool use. Tools expose actions. Protocols define how actions are discovered and invoked. Skills encode how actions should be organized into a repeatable task.
 
-![Figure 5 from the paper: skills as externalized procedural expertise](/images/posts/externalization-in-llm-agents/figure-5-skills-lifecycle.png)
+![Figure 5 from the paper: skills as externalized procedural expertise](/images/posts/externalization-in-llm-agents/figure-5-skills-lifecycle.webp)
 
 *Figure 5, from Zhou et al., [arXiv:2604.08224](https://arxiv.org/abs/2604.08224), [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), reproduced unchanged.*
 
@@ -87,7 +87,7 @@ The paper’s strongest move is to place memory, skills, and protocols inside ha
 
 A harness is not a thin wrapper around a model. It is the cognitive environment in which the agent runs: the control loop, context budget, permission model, sandbox, human approval path, logs, evaluation hooks, failure recovery, and sub-agent orchestration.
 
-![Figure 3 from the paper: externalization architecture of a harnessed LLM agent](/images/posts/externalization-in-llm-agents/figure-3-harnessed-agent-architecture.png)
+![Figure 3 from the paper: externalization architecture of a harnessed LLM agent](/images/posts/externalization-in-llm-agents/figure-3-harnessed-agent-architecture.webp)
 
 *Figure 3, from Zhou et al., [arXiv:2604.08224](https://arxiv.org/abs/2604.08224), [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), reproduced unchanged.*
 

@@ -19,7 +19,7 @@ pinned: false
 
 LLM Agent 也正在經歷類似的轉變。
 
-![論文 Figure 1：LLM Agent 設計中的外部化主線](/images/posts/externalization-in-llm-agents/figure-1-externalization-overview.png)
+![論文 Figure 1：LLM Agent 設計中的外部化主線](/images/posts/externalization-in-llm-agents/figure-1-externalization-overview.webp)
 
 *Figure 1, from Zhou et al., [arXiv:2604.08224](https://arxiv.org/abs/2604.08224), [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), format-converted for web display, content unchanged.*
 
@@ -59,7 +59,7 @@ LLM Agent 也正在經歷類似的轉變。
 
 這和工具調用不是同一層抽象。工具提供動作，protocol 定義動作如何被發現與呼叫，skill 則封裝如何把動作組織成一件可重複完成的事。
 
-![論文 Figure 5：技能作為外部化的過程性知識](/images/posts/externalization-in-llm-agents/figure-5-skills-lifecycle.png)
+![論文 Figure 5：技能作為外部化的過程性知識](/images/posts/externalization-in-llm-agents/figure-5-skills-lifecycle.webp)
 
 *Figure 5, from Zhou et al., [arXiv:2604.08224](https://arxiv.org/abs/2604.08224), [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), reproduced unchanged.*
 
@@ -87,7 +87,7 @@ Protocol 把含糊互動變成機器可讀的契約。工具如何發現，參�
 
 Harness 不是包在模型外面的一層薄 wrapper。它是 Agent 實際運作的認知環境：控制迴圈、上下文預算、權限模型、沙箱、人工審批、日誌、評估、失敗恢復、子 Agent 編排，都在這裡發生。
 
-![論文 Figure 3：Harnessed LLM Agent 的外部化架構](/images/posts/externalization-in-llm-agents/figure-3-harnessed-agent-architecture.png)
+![論文 Figure 3：Harnessed LLM Agent 的外部化架構](/images/posts/externalization-in-llm-agents/figure-3-harnessed-agent-architecture.webp)
 
 *Figure 3, from Zhou et al., [arXiv:2604.08224](https://arxiv.org/abs/2604.08224), [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), reproduced unchanged.*
 
