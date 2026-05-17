@@ -97,7 +97,7 @@ Harness는 모델 주변의 얇은 wrapper가 아니다. Agent가 실제로 동�
 
 ## 능력의 경계가 이동하고 있다
 
-이 논문에서 가장 유용한 생각은 “능력은 어디에 있는가”라는 질문을 바꾸는 것이다.
+이 논문의 핵심 전환은 “능력은 어디에 있는가”라는 질문을 바꾸는 것이다.
 
 능력이 weights에만 있다면 Agent 개선은 더 좋은 모델 사용, fine-tuning, retraining이 된다. 능력이 context에도 있다면 prompt와 retrieval이 중요한 engineering surface가 된다. 능력이 harness에도 있다면 system design 자체가 capability의 일부가 된다.
 
@@ -115,21 +115,14 @@ Memory는 오래된 상태, privacy boundary, retrieval pollution을 만든다. 
 
 평가 문제도 있다. Agent capability가 모델과 외부 인프라에 분산되어 있다면 우리는 정확히 무엇을 측정하는가? 같은 모델도 다른 harness 안에서는 전혀 다르게 행동할 수 있다. “model capability”와 “agent capability”는 더 이상 같은 말이 아니다.
 
-그래서 이 논문은 유용하다. 외부화가 모든 문제를 해결한다고 말하지 않는다. 신뢰할 수 있는 agency는 모델과 환경의 공동 설계에서 나온다고 말한다.
+그래서 이 논문의 위치가 분명하다. 외부화가 모든 문제를 해결한다고 말하지 않는다. 신뢰할 수 있는 agency는 모델과 환경의 공동 설계에서 나온다고 말한다.
 
 ## 실용적 판단
 
-이 논문은 실용적으로 한 문장으로 줄일 수 있다.
+이 survey의 핵심 문장은 이것입니다. **Agent 발전의 한 축은 인지 부담을 모델 가중치에서 검사 가능하고, 재사용 가능하고, 거버넌스 가능한 외부 구조로 옮기는 것이다.**
 
-**Agent engineering is increasingly harness engineering.**
+모델이 중요하지 않다는 뜻은 아닙니다. 모델은 여전히 이해, 계획, 생성의 상한을 정합니다. 하지만 Agent가 장기 과제에 들어가면 신뢰성은 매번 즉석 추론에만 의존할 수 없습니다. 상태는 저장되어야 하고, 절차는 재사용 가능해야 하며, 도구 호출에는 protocol이 필요하고, 권한과 실패는 harness가 받아야 합니다.
 
-모델이 덜 중요해졌기 때문이 아니다. 모델이 더 큰 인지 시스템 안에서 작동하기 때문이다. Memory는 시간을 확장한다. Skills는 절차를 안정화한다. Protocols는 상호작용 질서를 만든다. Harness는 전체를 관찰 가능하고, 권한화되고, 복구 가능하게 만든다.
+Externalization은 과제를 "모델이 매번 알아내게 하라"에서 "시스템이 남길 수 있는 것을 남기게 하라"로 바꿉니다. Memory는 시간을 보존합니다. Skills는 절차를 보존합니다. Protocols는 상호작용 질서를 보존합니다. Governance는 경계를 보존합니다. Harness는 이 조각들을 runtime environment로 묶습니다.
 
-그래서 어떤 Agent 시스템을 볼 때는 모델 이름만 묻기보다 이런 질문을 해야 한다.
-
-- 어떤 상태를 외부화했는가?
-- 어떤 재사용 가능한 skills를 가지고 있는가?
-- 도구와 Agent 상호작용은 protocolized되어 있는가?
-- Harness는 권한, 실패, 로그, human approval을 어떻게 처리하는가?
-
-이 질문들이 모델 이름보다 실제 시스템 능력에 더 가까운 경우가 많다.
+다음에 Agent 시스템을 볼 때는 어떤 모델을 쓰는지만 묻지 않는 편이 좋습니다. 어떤 인지 부담을 모델 밖으로 옮겼는지, 어떤 외부 구조가 검사 가능하고 업데이트 가능하며 rollback 가능한지 물어야 합니다. 이 질문이 모델 이름보다 실제 능력에 더 가깝습니다.

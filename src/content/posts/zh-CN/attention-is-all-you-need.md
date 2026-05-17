@@ -7,17 +7,9 @@ tags: [paper-reading, transformer, AI, LLM, python]
 pinned: false
 ---
 
-2017 年 6 月 12 日，八个人在 arXiv（一个学术论文预印本网站，论文不用等期刊审稿就能直接发布）上传了一篇论文，标题只有五个词：[《Attention Is All You Need》](/papers/1706.03762v7.pdf)（注意力就是你所需要的全部）。
+Transformer 的第一性问题不是“注意力有没有用”，而是序列建模为什么一定要被时间顺序绑住。RNN 把文本顺序和计算顺序锁在一起，长距离依赖、并行训练和信息寻址都被这条锁链拖住。
 
-这八个人是 Ashish Vaswani、Noam Shazeer、Niki Parmar、Jakob Uszkoreit、Llion Jones、Aidan N. Gomez、Łukasz Kaiser 和 Illia Polosukhin，当时大多在 Google Brain 和 Google Research 工作。
-
-论文发出之后，这个八人组几乎全部散开。Noam Shazeer 离开 Google 创立了 Character.AI，后来又被 Google 高价请回；Aidan Gomez 从多伦多大学博士还没毕业就创立了 Cohere，做企业级大模型；Llion Jones 去了日本，创立了 Sakana AI；Illia Polosukhin 走了一条谁都没想到的路，创立了 NEAR Protocol，做区块链；Ashish Vaswani 和 Niki Parmar 搭档创立了 Adept AI，后来又一起创立了 Essential AI；Jakob Uszkoreit 创立了 Inceptive，用 AI 设计 RNA 药物；Łukasz Kaiser 则加入了 OpenAI，参与了 GPT 系列的研发。
-
-八位作者，七家公司，横跨 AI、区块链、生物技术。
-
-近九年后的今天，ChatGPT、Claude、DeepSeek、Qwen，这些 AI 产品的底层架构思路，大多都能追溯到这 15 页纸。
-
-这篇文章是一篇基于论文的研究笔记，附带真实 Python 代码示例。不是翻译，也不是摘要。没有技术背景也能读下去。
+[《Attention Is All You Need》](/papers/1706.03762v7.pdf) 的革命不在于注意力本身，而在于把序列建模从时间顺序问题改写成全局寻址问题：每个位置直接问，当前最该看谁。
 
 ## 0. 先认几个词
 
@@ -82,7 +74,7 @@ def scaled_dot_product_attention(
     return weights @ value
 ```
 
-就这么几行代码。很多后来改变行业的能力，底层都建立在这几行运算之上。
+核心运算很短。很多后来改变行业的能力，底层都建立在这几行矩阵运算之上。
 
 ## 3. 多头注意力：同时从多个角度看
 
@@ -273,21 +265,15 @@ class Transformer(nn.Module):
 
 **结果**：论文用 BLEU 分数（机器翻译的标准评分，衡量机器翻译和人工翻译有多接近，满分 100）来衡量效果。英德翻译 28.4 分，英法翻译 41.8 分，都刷新了当时的记录。训练成本比之前的方法低了一到两个数量级。更快，更强，更便宜。
 
-## 7. 几点观察
+## 7. 这篇论文改变了什么问题
 
-回到今天看，有几个观察。
+Transformer 的钉子句是：**序列建模不必按时间顺序计算，它可以变成全局寻址。**
 
-第一，这篇论文的核心洞察很简洁：扔掉顺序处理的包袱，让注意力机制直接建模任意两个位置之间的关系。Self-Attention、残差连接、Layer Normalization，没有一个是新发明。关键不在于发明新工具，而在于把这些已有积木组合成稳定可训练的系统，并用实验验证这条路线。
+这篇论文的核心不是“注意力很强”四个字。注意力在 Bahdanau 那里已经出现过。真正的转折是：作者把循环和卷积从骨架位置拿掉，让每个 token 直接访问其他 token。计算路径不再被文本顺序绑住，长距离依赖也不再必须穿过一长串中间状态。
 
-第二，把关键模块用真实 Python 写出来，有助于更具体地理解每一个设计决策。当你自己写出 Scaled Dot-Product Attention，你会切实感受到那个 √d_k 的缩放有多重要。当你实现 masking，你会理解自回归生成的约束从何而来。对工程读者来说，读论文和写实现应该放在一起。
+Self-Attention、残差连接、LayerNorm、前馈网络都不是孤立的英雄。它们共同组成了一台更适合并行训练、更适合规模化的序列机器。Transformer 的力量，来自把信息流和硬件效率同时改写。
 
-第三，真正值得注意的，不是它后来衍生出了多少模型，而是它当年就把问题改写了：从「怎么按顺序记住一句话」，变成「怎么让每个位置直接找到它最该看的信息」。GPT、BERT、T5、LLaMA，全是这个问题改写之后的产物。
-
-一个足够好的架构，能走多远，取决于有多少人愿意在它上面继续建设。
-
-这篇论文给出了那个架构。
-
-《Attention Is All You Need》（注意力就是你所需要的全部）。
+下次看一个新架构，不要只问它用了什么模块。先问它有没有改写问题的坐标系：是继续沿着旧计算路径做优化，还是把信息寻址方式换掉了。
 
 ---
 

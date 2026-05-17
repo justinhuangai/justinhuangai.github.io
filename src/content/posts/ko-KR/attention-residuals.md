@@ -7,9 +7,9 @@ tags: [technical-report-reading, residual-connections, transformer, AI, LLM, pyt
 pinned: false
 ---
 
-2026년 3월 16일, Kimi Team은 arXiv에 기술 리포트 한 편을 올렸다: [《Attention Residuals》](/papers/2603.15031v1.pdf) (어텐션 잔차).
+Residual connection은 오랫동안 학습 안정성을 위한 통로로 이해됐습니다. 깊은 네트워크에서 gradient가 지나가게 하고, 오래된 표현이 너무 빨리 사라지지 않게 합니다. 하지만 모델을 정보 시스템으로 보면 더 깊은 질문이 생깁니다. 깊이 방향의 정보는 어떻게 라우팅되어야 할까요?
 
-이 리포트에서 저자들이 진짜로 힘을 준 부분은 구조만 봐도 드러난다. 단순히 "새 모듈 하나를 제안했다"가 아니다. `motivation -> AttnRes -> Block AttnRes -> infrastructure -> experiments -> discussion`의 순서로, residual connection이 실제로 무엇을 하고 있는지를 처음부터 다시 설명한다.
+[《Attention Residuals》](/papers/2603.15031v1.pdf)는 residual connection을 안정화 장치가 아니라 layer 사이의 정보 라우팅으로 다시 정의합니다. 질문은 모듈 하나를 더 붙이면 benchmark가 몇 점 오르는가가 아닙니다. sequence dimension에는 attention이 있는데 왜 depth dimension은 아직 fixed addition을 쓰는가입니다.
 
 ## 0. 먼저 몇 가지 용어부터
 
@@ -236,7 +236,7 @@ Baseline에서는 output magnitude가 깊이에 따라 계속 상승한다. 그�
 
 이 리포트의 ablation이 좋은 이유는 단지 "효과가 있다"를 보여 주는 데서 멈추지 않고, 왜 효과가 있는지까지 건드리기 때문이다.
 
-가장 흥미로운 몇 가지 결과를 보면:
+핵심 ablation 결과를 보면:
 
 - **DenseFormer는 1.767로, baseline 1.766과 거의 같다.**  
   단지 모든 이전 층에 접근할 수 있다는 사실만으로는 부족하다는 뜻이다. 중요한 것은 가중치가 input-dependent 하냐는 점이다.
@@ -254,9 +254,9 @@ Baseline에서는 output magnitude가 깊이에 따라 계속 상승한다. 그�
   그래서 저자들이 최종적으로 약 8개 block을 택한 것이다. 감이 아니라 성능과 엔지니어링 사이의 sweet spot이다.
 
 - **input-dependent query 버전은 1.731로 Full AttnRes보다도 더 좋다.**  
-  이건 특히 흥미롭다. 현재 리포트의 pseudo-query 설계가 성능 상한이 아니라는 뜻이기 때문이다. 이것은 인프라 최적화를 위해 고른 절충안이다. 다시 말해, 저자들은 더 강한 버전을 몰라서 안 쓴 것이 아니라, 확장 가능한 버전을 의식적으로 택했다.
+  이 결과는 현재 리포트의 pseudo-query 설계가 성능 상한이 아니라는 뜻이다. 이것은 인프라 최적화를 위해 고른 절충안이다. 다시 말해, 저자들은 더 강한 버전을 몰라서 안 쓴 것이 아니라, 확장 가능한 버전을 의식적으로 택했다.
 
-그래서 이 리포트가 재미있다. 본문, ablation, 시스템 설계를 함께 보면 진짜 선택 기준이 드러난다. 무작정 최저 loss만 쫓는 것이 아니라, 충분히 강하면서 실제로 훈련 가능한 설계를 찾고 있는 것이다.
+그래서 이 리포트의 실제 trade-off가 드러난다. 본문, ablation, 시스템 설계를 함께 보면 진짜 선택 기준이 드러난다. 무작정 최저 loss만 쫓는 것이 아니라, 충분히 강하면서 실제로 훈련 가능한 설계를 찾고 있는 것이다.
 
 ## 7. 이 리포트를 어떻게 볼 것인가
 
@@ -268,7 +268,7 @@ Baseline에서는 output magnitude가 깊이에 따라 계속 상승한다. 그�
 - 깊이 차원에도 attention sink 같은 현상이 있는가?
 - 기존 residual 변형들은 사실상 depth-wise linear attention에 가까운 것 아닌가?
 
-바로 그 지점에서 discussion 섹션이 흥미로워진다. 저자들은 여러 residual 변형을 `depth mixing matrix`라는 관점에서 다시 묶어 내고, 한 걸음 더 나아가 이렇게 말한다:
+바로 그 지점에서 discussion 섹션이 제 역할을 한다. 저자들은 여러 residual 변형을 `depth mixing matrix`라는 관점에서 다시 묶어 내고, 한 걸음 더 나아가 이렇게 말한다:
 
 **기존 방법들 상당수는 본질적으로 깊이 차원에서 linear attention을 하고 있고, AttnRes는 깊이 차원의 softmax attention을 한다.**
 
@@ -290,28 +290,15 @@ Baseline에서는 output magnitude가 깊이에 따라 계속 상승한다. 그�
 
 셋째, 리포트 스스로도 Full AttnRes가 더 강하다고 인정한다. Block AttnRes는 오늘날 하드웨어 제약 아래에서의 현실적 답이다. 앞으로 메모리, 대역폭, interconnect가 더 좋아지거나, 더 효율적인 depth attention 변형이 나온다면 지금의 block 설계가 최종형일 가능성은 낮다.
 
-## 9. 마지막 인상
+## 9. 이 보고서가 바꾼 질문
 
-지난 10년간 대형 모델 아키텍처의 흐름을 아주 거칠게 요약하면:
+Attention Residuals의 핵심 문장은 이것입니다. **residual connection은 학습 안정성을 위한 통로일 뿐 아니라 layer 사이의 정보 라우팅 규칙이다.**
 
-- Seq2Seq는 "한 시퀀스를 어떻게 다른 시퀀스로 압축할 것인가?"를 물었고
-- Bahdanau는 "왜 디코딩할 때 입력의 다른 위치를 다시 볼 수 없지?"를 물었고
-- Transformer는 "왜 시퀀스 모델링이 꼭 recurrence에 의존해야 하지?"를 물었고
-- Chinchilla는 "왜 늘어난 compute는 주로 파라미터 수에만 써야 하지?"를 물었다
+이 보고서는 기본값처럼 받아들여진 구조를 다시 질문으로 만듭니다. 표준 PreNorm residual은 과거 layer들을 거의 고정 가중치로 더합니다. 학습은 안정적이지만 routing rule은 거칩니다. AttnRes는 묻습니다. sequence dimension은 이미 attention으로 중요한 것을 고르는데, 왜 depth dimension은 아직 fixed addition인가?
 
-그렇다면 *Attention Residuals*는 이렇게 묻는다:
+이 프레이밍은 "모듈 하나 추가"보다 더 가치 있습니다. Residual connection을 gradient highway 이야기에서 꺼내 정보 시스템 안으로 돌려놓습니다. 각 layer는 어떤 이전 layer에 접근해야 하는가? 어떤 표현은 크게 남기고, 어떤 표현은 낮춰야 하는가? Block AttnRes의 의미도 단순한 memory 절약이 아닙니다. 품질, bandwidth, cache, pipeline 제약 사이에서 학습 가능한 대규모 타협점을 제시합니다.
 
-**왜 깊이 방향의 정보 집계는 아직도 "모든 과거 층을 똑같이 더하는 시대"에 머물러 있는가?**
-
-이 질문만으로도 이미 충분히 가치가 있다.
-
-몇 년 뒤 AttnRes가 PreNorm처럼 기본 설정이 될지는 나도 모른다. 하지만 이 기술 리포트가 residual connection을 다시 생각하고, 설계하고, 최적화할 가치가 있는 대상으로 되돌려 놓았다는 점만은 꽤 확신한다.
-
-사람들은 attention이 시퀀스 모델링을 다시 썼다고 말했다.
-
-이 리포트는 residual을 다시 쓰려 하고 있다.
-
-2026년 봄, Kimi 팀의 작업은 이미 한 가지를 보여준다: Scaling Laws가 병목에 가까워지는 징후를 드러내기 시작할 때, LLM의 구조 혁신은 계속해서 등장할 것이다.
+다음에 architecture change를 볼 때는 benchmark가 몇 점 올랐는지만 보지 않는 편이 좋습니다. 어떤 정보 경로를 다시 정의했는지 물어야 합니다. 중요한 구조 변화는 능력을 직접 추가하기보다 능력이 흐르는 경로를 바꿉니다.
 
 ---
 

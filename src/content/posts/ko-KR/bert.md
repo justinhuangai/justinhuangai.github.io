@@ -7,13 +7,9 @@ tags: [paper-reading, bert, AI, LLM, python]
 pinned: false
 ---
 
-2018년 10월 11일, Google AI Language 팀은 arXiv(연구자들이 학술지 동료 심사를 거치지 않고 논문을 게시할 수 있는 프리프린트 서버)에 한 편의 논문을 업로드했다: [《BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding》](/papers/1810.04805v2.pdf) (BERT: 언어 이해를 위한 깊은 양방향 트랜스포머 사전학습).
+BERT의 목표는 더 깊은 Transformer를 만드는 것이 아니었습니다. NLP 과제가 오랫동안 조각나 있던 문제를 겨냥했습니다. 질의응답, 분류, sequence labeling마다 모델 형태와 데이터 인터페이스가 달랐고, 모델이 배운 언어 지식을 깔끔하게 재사용하기 어려웠습니다.
 
-저자는 Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova로, 모두 Google 소속이다. Devlin은 Google에 합류하기 전 Microsoft Research에서 근무했으며, Google에서 BERT의 설계와 구현을 주도했다.
-
-BERT는 Bidirectional Encoder Representations from Transformers의 약자다. 당시로서는 상당히 대담한 시도를 했다: 먼저 대량의 레이블이 없는 텍스트로 범용 pre-training을 수행한 뒤, 출력 레이어 하나만 추가하고 특정 태스크에 fine-tuning하여 최첨단 성능을 달성한 것이다.
-
-이 "pre-train 후 fine-tune" 패러다임은 이후 NLP 전체의 표준 접근 방식이 되었다. GPT 시리즈도 비슷한 아이디어를 따랐지만 다른 길을 택했다 — 단방향 생성이다. BERT는 양방향 이해를 선택했다. 두 갈래의 길은 각각 방대한 모델 계보를 탄생시켰다.
+[《BERT》](/papers/1810.04805v2.pdf)의 핵심은 bidirectional Transformer만이 아닙니다. 언어 이해 과제를 pretrained representation의 재사용 문제로 통일했다는 데 있습니다. 먼저 범용 표현을 학습하고, 얇은 task layer로 각 문제에 맞춥니다. 이 전환이 구조 자체보다 더 중요했습니다.
 
 ## 0. 먼저 몇 가지 용어부터
 
@@ -229,21 +225,15 @@ Pre-training에는 며칠이 걸릴 수 있지만, fine-tuning은 보통 수 분
 
 **Dropout**: 모든 레이어에서 0.1. 활성화 함수는 원래 Transformer의 ReLU 대신 GELU (Gaussian Error Linear Unit)를 사용.
 
-## 8. 주요 관찰
+## 8. 이 논문이 바꾼 질문
 
-이 논문을 읽고 나서 몇 가지 인상적인 점이 있다.
+BERT의 핵심 문장은 이것입니다. **언어 이해는 먼저 재사용 가능한 표현으로 학습되고, 그다음 구체적인 과제에 전달될 수 있다.**
 
-첫째, BERT의 진정한 기여는 모델 아키텍처(단순히 Transformer 인코더에 불과하다)가 아니라 학습 방법에 있다. Masked language model 아이디어는 단순해 보이지만, 모델이 "치팅"하지 않으면서 양방향 문맥을 활용하는 근본적인 모순을 우아하게 해결한다. 80/10/10 마스킹 전략은 더욱 정교하게 설계되어 pre-training과 fine-tuning 사이의 불일치를 해소한다.
+핵심은 Transformer encoder만도 아니고 bidirectional만도 아닙니다. MLM과 NSP로 unlabeled text를 pretraining signal로 만들고, classification, question answering, sequence labeling이 같은 입력 형식과 representation base를 공유하게 한 것입니다.
 
-둘째, BERT와 GPT의 갈림길은 이 논문에서 이미 명확하다. GPT의 autoregressive 목표는 생성에 더 자연스럽게 적합하고, BERT의 양방향 인코딩은 판별적 언어 이해 태스크에 더 적합하다. GPT는 이후 더 강력한 생성 능력 쪽으로 스케일업했고, BERT는 RoBERTa, ALBERT, DeBERTa를 포함한 이해 중심 모델 계보를 탄생시켰다. 두 계열 모두 각자의 영역에서 계속 활약하고 있다.
+이것은 NLP의 엔지니어링 단위를 바꿨습니다. BERT 이전에는 각 과제가 별도 프로젝트처럼 보였습니다. BERT 이후 많은 과제는 같은 pretrained representation 위의 얇은 adaptation layer가 됐습니다. 모델은 각 task dataset에서 언어를 다시 배우지 않습니다. 먼저 일반 언어 기반을 갖고, 그 위에서 task boundary를 배웁니다.
 
-셋째, "pre-train + fine-tune" 패러다임의 영향은 NLP를 훨씬 넘어선다. 컴퓨터 비전도 이후 같은 접근 방식으로 전면 전환했고(ViT, MAE), 멀티모달 모델(CLIP, GPT-4V)까지도 대규모 pre-training에 fine-tuning이나 프롬프팅을 결합하는 방식을 기반으로 한다. BERT가 pre-training을 최초로 시도한 것은 아니지만, 이렇게 간결한 방식으로 pre-training을 유용한 기법에서 NLP의 주류 작업 패러다임으로 끌어올린 것은 BERT가 처음이었다.
-
-넷째, BERT의 입력 처리를 실제 Python으로 다시 쓰면 설계가 얼마나 깔끔한지 체감할 수 있다. \[CLS\] + 문장 A + \[SEP\] + 문장 B + \[SEP\], 세 가지 임베딩을 합산 — 이 하나의 파이프라인으로 분류, 질의응답, 시퀀스 레이블링을 통합된 코드베이스 하나로 처리할 수 있다. 이 "하나의 모델로 모든 태스크를" 이라는 단순함이야말로 진정한 강점이다.
-
-이 논문의 제목에서 가장 중요한 단어가 하나 있다: Pre-training. BERT 이전에는 모든 NLP 태스크가 처음부터 학습하고 있었다. BERT는 한 가지를 증명했다: 언어에 대한 범용 지식을 먼저 학습한 뒤, 거의 모든 태스크로 전이할 수 있다는 것이다.
-
-그 아이디어가 한 분야 전체의 작동 방식을 바꿨다.
+다음에 understanding model을 볼 때는 bidirectional인지에서 멈추지 않는 편이 좋습니다. 그 representation이 재사용 가능한가? task 차이는 모델 본체 안에 들어가는가, 아니면 얇은 인터페이스로 압축되는가?
 
 ---
 

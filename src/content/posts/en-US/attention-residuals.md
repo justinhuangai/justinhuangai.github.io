@@ -7,9 +7,9 @@ tags: [technical-report-reading, residual-connections, transformer, AI, LLM, pyt
 pinned: false
 ---
 
-On March 16, 2026, Kimi Team uploaded a technical report to arXiv: [*Attention Residuals*](/papers/2603.15031v1.pdf).
+Residual connections have long been treated as a training-stability pipe: let gradients pass through deep networks, and keep old representations from disappearing too quickly. But if the model is an information system, residuals raise a deeper question: how should information be routed across depth?
 
-You can tell what the authors really care about just from the shape of the report. It is not simply "here is a new module." It walks through `motivation -> AttnRes -> Block AttnRes -> infrastructure -> experiments -> discussion`, and in doing so, it retells a deeper question: what is a residual connection actually doing?
+[*Attention Residuals*](/papers/2603.15031v1.pdf) redefines residual connections from a stability mechanism into cross-layer information routing. It is not asking whether one more module can add a few benchmark points. It asks why the sequence dimension has attention while the depth dimension is still using fixed addition.
 
 ## 0. A Few Terms First
 
@@ -168,7 +168,7 @@ The appendix and `table/memory_access.tex` contain the hardest numbers in the wh
 - Block AttnRes: `5.5d`
 - mHC: `34d`
 
-That comparison says a lot. Block AttnRes is not "as cheap as a standard residual." But it has already moved from "obviously impractical" to "interesting enough to try in a real system." And the measured overhead is modest:
+That comparison says a lot. Block AttnRes is not "as cheap as a standard residual." But it has already moved from "obviously impractical" to "practical enough to test in a real system." And the measured overhead is modest:
 
 - training wall-clock overhead is below 4%
 - inference latency overhead is below 2%
@@ -226,7 +226,7 @@ After pretraining, AttnRes is no worse than the baseline on all listed evaluatio
 - HumanEval: `59.1 -> 62.2`
 - C-Eval: `79.6 -> 82.5`
 
-The most interesting part is that gains are larger on tasks like GPQA, Math, and HumanEval, where multi-step reasoning or program synthesis matter more. The report's explanation is that if later layers can retrieve earlier-layer representations more selectively, compositional tasks benefit more. That explanation makes sense.
+The larger gains on GPQA, Math, and HumanEval directly match the report's mechanism claim: multi-step reasoning and program synthesis benefit more from selective retrieval across depth. The report's explanation is that if later layers can retrieve earlier-layer representations more selectively, compositional tasks benefit more. That explanation makes sense.
 
 Complex reasoning is often not limited by missing information. It is limited by important information getting buried deep inside the network.
 
@@ -236,7 +236,7 @@ Complex reasoning is often not limited by missing information. It is limited by 
 
 The ablation section is strong because it does not only show that the method helps. It also tries to show why.
 
-Some of the most interesting takeaways:
+The key ablation takeaways:
 
 - **DenseFormer reaches 1.767, almost identical to the baseline at 1.766.**  
   So merely being able to access all previous layers is not enough. What matters is whether the weighting is input-dependent.
@@ -254,9 +254,9 @@ Some of the most interesting takeaways:
   That is why the authors settle on roughly 8 blocks in the end. It is not arbitrary. It is a good engineering-effectiveness sweet spot.
 
 - **An input-dependent query version reaches 1.731, even better than Full AttnRes.**  
-  This is especially interesting. It means the pseudo-query design in the report is not the performance ceiling. It is a compromise chosen to make infrastructure optimizations easier. In other words, the authors are not unaware of stronger variants. They are deliberately choosing a more scalable one.
+  This result means the pseudo-query design in the report is not the performance ceiling. It is a compromise chosen to make infrastructure optimizations easier. In other words, the authors are not unaware of stronger variants. They are deliberately choosing a more scalable one.
 
-That is one reason this report is useful. When you read the main text, the ablations, and the systems section together, you can see the real trade-off clearly: the goal is not blindly minimizing loss at any cost. The goal is something strong enough, while still trainable in practice.
+That is where the report reveals its real trade-off. When you read the main text, the ablations, and the systems section together, you can see the real trade-off clearly: the goal is not blindly minimizing loss at any cost. The goal is something strong enough, while still trainable in practice.
 
 ## 7. How to Read This Report
 
@@ -268,7 +268,7 @@ Once you adopt that lens, many old questions get reframed. Residuals stop lookin
 - are there attention-sink-like effects along depth?
 - were older residual variants already doing something like depth-wise linear attention?
 
-That is exactly where the discussion section becomes interesting. The authors reinterpret a bunch of residual variants through the lens of a `depth mixing matrix`, and go one step further:
+That is where the discussion section does its best work. The authors reinterpret a bunch of residual variants through the lens of a `depth mixing matrix`, and go one step further:
 
 **Many existing methods are, in essence, doing linear attention along the depth dimension; AttnRes is doing softmax attention along depth.**
 
@@ -290,28 +290,15 @@ Second, the large-scale results are tied to the Kimi Linear line of architecture
 
 Third, the report itself admits that Full AttnRes is stronger, while Block AttnRes is the practical answer under today's hardware constraints. If memory, bandwidth, and interconnect improve further, or if more efficient variants of depth attention appear, today's block design probably will not be the endpoint.
 
-## 9. Final Impression
+## 9. What This Report Changed
 
-If you reduce the last decade of large-model architecture progress to a very rough storyline:
+Attention Residuals' sharpest lesson is: **a residual connection is not only a training-stability pipe; it is a cross-layer information-routing rule.**
 
-- Seq2Seq asked: how do we compress one sequence into another?
-- Bahdanau asked: why can't decoding look back at different positions in the input?
-- Transformer asked: why must sequence modeling depend on recurrence?
-- Chinchilla asked: why should extra compute mainly go into parameter count?
+The report turns a default structure back into a question. Standard PreNorm residuals roughly sum historical layers with fixed weights. Training is stable, but the routing rule is crude. AttnRes asks: if the sequence dimension already uses attention to choose what matters, why is the depth dimension still fixed addition?
 
-Then *Attention Residuals* asks:
+That framing is more valuable than "one more module." It pulls residual connections out of the gradient-highway story and back into the information system: which earlier layers should a layer access, which representations should remain loud, and which should be suppressed? Block AttnRes matters not only because it saves memory, but because it gives a trainable large-scale compromise across quality, bandwidth, cache, and pipeline constraints.
 
-**Why is information aggregation across depth still living in the era of "sum every historical layer equally"?**
-
-That question alone is already valuable.
-
-Whether AttnRes becomes a default configuration in a few years the way PreNorm did remains open. What this technical report already does is turn residual connections back into something worth thinking about, designing, and optimizing.
-
-People used to say attention rewrote sequence modeling.
-
-This report is trying to rewrite residuals.
-
-In spring 2026, the Kimi team's work already makes one thing clear: when Scaling Laws begin to show signs of nearing a bottleneck, structural innovation in LLMs will continue to emerge.
+The next time you look at an architecture change, do not only check how many benchmark points it added. Ask which information path it redefined. Important structural changes often do not add capability directly; they change how capability flows.
 
 ---
 

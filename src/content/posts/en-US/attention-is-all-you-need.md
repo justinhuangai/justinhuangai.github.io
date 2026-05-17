@@ -7,17 +7,9 @@ tags: [paper-reading, transformer, AI, LLM, python]
 pinned: false
 ---
 
-On June 12, 2017, eight people uploaded a paper to arXiv (a preprint server where researchers can publish papers without waiting for journal peer review), with a title of just five words: [*Attention Is All You Need*](/papers/1706.03762v7.pdf).
+The first-principles question behind the Transformer is not whether attention is useful. It is why sequence modeling had to be tied to temporal order in the first place. RNNs locked text order and compute order together, dragging long-range dependency, parallel training, and information lookup through the same narrow path.
 
-The eight were Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin, most of them working at Google Brain and Google Research at the time.
-
-After the paper came out, the group scattered. Noam Shazeer left Google to start Character.AI, then was later bought back by Google at a premium. Aidan Gomez started Cohere before he even finished his PhD at the University of Toronto, building enterprise-scale large language models. Llion Jones moved to Japan and founded Sakana AI. Illia Polosukhin took a path no one saw coming -- he started NEAR Protocol, a blockchain project. Ashish Vaswani and Niki Parmar teamed up to co-found Adept AI, then later started Essential AI together. Jakob Uszkoreit founded Inceptive, using AI to design RNA-based medicines. Łukasz Kaiser joined OpenAI and contributed to the development of the GPT series. 
-
-Eight authors, seven companies, spanning AI, blockchain, and biotech.
-
-Nearly nine years later, ChatGPT, Claude, DeepSeek, Qwen -- the underlying architecture of these AI products can almost all be traced back to those 15 pages.
-
-This post is a study note on the paper, with real Python code examples. It is not a translation and not just a summary. You do not need a technical background to follow along.
+[*Attention Is All You Need*](/papers/1706.03762v7.pdf) was revolutionary not because attention existed, but because it rewrote sequence modeling as global addressing: every position can directly ask which other positions matter right now.
 
 ## 1. The One-Sentence Version
 
@@ -263,21 +255,15 @@ With the architecture designed, how do you train it? The paper put real thought 
 
 **Results**: the paper uses BLEU scores (a standard metric for machine translation, measuring how close the machine output is to human translation, with a maximum of 100) to evaluate performance. English-to-German: 28.4. English-to-French: 41.8. Both set new records at the time. Training cost was one to two orders of magnitude lower than previous approaches. Faster, stronger, cheaper.
 
-## 7. Takeaways
+## 7. What This Paper Changed
 
-From today's perspective, a few things stand out.
+The Transformer's sharpest lesson is: **sequence modeling does not have to compute in temporal order; it can become global addressing.**
 
-First, the core insight of this paper is concise: throw away the baggage of sequential processing and let the attention mechanism directly model the relationship between any two positions. Self-Attention, residual connections, Layer Normalization -- none of these were new inventions. The key move was to assemble existing building blocks into a stable, trainable system and validate that route experimentally.
+The core of the paper is not "attention is powerful." Attention already existed in Bahdanau's work. The turn was removing recurrence and convolution from the backbone, then letting every token directly access every other token. The compute path was no longer chained to text order, and long-range dependency no longer had to pass through a long sequence of intermediate states.
 
-Second, writing the key modules in real Python makes each design decision more concrete. When you write Scaled Dot-Product Attention yourself, you see why that sqrt(d_k) scaling matters. When you implement masking, you understand exactly where the autoregressive generation constraint comes from. For engineering readers, reading the paper and writing the implementation belong together.
+Self-attention, residual connections, LayerNorm, and feed-forward networks are not separate heroes. Together they form a sequence machine that fits parallel training and scale. The Transformer worked because it rewired both information flow and hardware efficiency.
 
-Third, the most important point is not how many models it later spawned, but the fact that it reframed the problem back in 2017: from "how do we remember a sentence in order" to "how do we let every position directly find the information it needs most." GPT, BERT, T5, LLaMA -- all of them are products of that reframing.
-
-How far a sufficiently good architecture can go depends on how many people are willing to keep building on it.
-
-This paper gave us that architecture.
-
-Attention Is All You Need.
+The next time you evaluate a new architecture, do not only ask which modules it uses. Ask whether it changes the coordinate system of the problem: is it optimizing the old compute path, or replacing the way information is addressed?
 
 ---
 

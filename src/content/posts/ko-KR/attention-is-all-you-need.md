@@ -7,17 +7,9 @@ tags: [paper-reading, transformer, AI, LLM, python]
 pinned: false
 ---
 
-2017년 6월 12일, 여덟 명이 arXiv(연구자들이 학술지 심사를 기다리지 않고 논문을 발표할 수 있는 프리프린트 서버)에 논문 한 편을 올렸다. 제목은 단 다섯 단어: [《Attention Is All You Need》](/papers/1706.03762v7.pdf) (어텐션만 있으면 충분하다).
+Transformer의 첫 질문은 attention이 유용한가가 아닙니다. 왜 sequence modeling이 시간 순서에 묶여 있어야 하는가입니다. RNN은 텍스트 순서와 계산 순서를 함께 묶었고, long-range dependency, 병렬 학습, 정보 검색이 모두 그 좁은 경로에 묶였습니다.
 
-여덟 명은 Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, 그리고 Illia Polosukhin이었으며, 대부분 당시 Google Brain과 Google Research에서 일하고 있었다.
-
-논문이 발표된 후 이들은 뿔뿔이 흩어졌다. Noam Shazeer는 Google을 떠나 Character.AI를 창업했다가, 나중에 프리미엄을 받고 다시 Google에 인수되었다. Aidan Gomez는 토론토 대학교에서 박사 과정을 마치기도 전에 Cohere를 설립하여 기업용 대규모 언어 모델을 구축했다. Llion Jones는 일본으로 건너가 Sakana AI를 창립했다. Illia Polosukhin은 아무도 예상하지 못한 길을 걸었다 -- 블록체인 프로젝트 NEAR Protocol을 시작한 것이다. Ashish Vaswani와 Niki Parmar는 함께 Adept AI를 공동 창립한 뒤, 나중에 Essential AI를 설립했다. Jakob Uszkoreit는 AI를 활용해 RNA 기반 의약품을 설계하는 Inceptive를 창립했다. Łukasz Kaiser는 OpenAI에 합류해 GPT 시리즈 개발에 기여했다.
-
-여덟 명의 저자, 일곱 개의 회사, AI, 블록체인, 바이오테크에 걸친 행보.
-
-약 9년이 지난 지금, ChatGPT, Claude, DeepSeek, Qwen -- 이 AI 제품들의 기본 아키텍처는 거의 모두 그 15페이지짜리 논문으로 거슬러 올라갈 수 있다.
-
-이 글은 논문을 바탕으로 정리한 연구 노트이며, 실제 Python 코드 예시를 포함한다. 번역도, 단순 요약도 아니다. 기술적 배경 지식 없이도 따라갈 수 있다.
+[《Attention Is All You Need》](/papers/1706.03762v7.pdf)의 혁명은 attention 자체가 아니라 sequence modeling을 시간 순서 문제가 아니라 전역 주소 지정 문제로 바꾼 데 있습니다. 각 위치가 지금 가장 봐야 할 위치를 직접 찾습니다.
 
 ## 0. 먼저 몇 가지 용어부터
 
@@ -273,21 +265,15 @@ class Transformer(nn.Module):
 
 **결과**: 논문은 BLEU 점수(기계 번역의 표준 지표로, 기계 출력이 인간 번역에 얼마나 가까운지 측정하며 최대 100점)로 성능을 평가한다. 영어-독일어: 28.4점. 영어-프랑스어: 41.8점. 둘 다 당시 최고 기록을 갱신했다. 학습 비용은 이전 접근 방식 대비 1~2자릿수 낮았다. 더 빠르고, 더 강하고, 더 저렴하다.
 
-## 7. 주요 관찰
+## 7. 이 논문이 바꾼 질문
 
-오늘의 관점에서 보면 몇 가지가 눈에 띈다.
+Transformer의 핵심 문장은 이것입니다. **sequence modeling은 시간 순서대로 계산할 필요가 없고, 전역 주소 지정 문제가 될 수 있다.**
 
-첫째, 이 논문의 핵심 통찰은 간결하다: 순차 처리의 짐을 버리고, attention 메커니즘이 임의의 두 위치 사이의 관계를 직접 모델링하게 하는 것이다. Self-Attention, 잔차 연결, Layer Normalization -- 이 중 어느 것도 새로운 발명이 아니었다. 핵심은 기존 빌딩 블록을 안정적으로 학습 가능한 시스템으로 조합하고, 그 경로를 실험으로 검증한 데 있다.
+이 논문의 핵심은 "attention이 강하다"가 아닙니다. Attention은 이미 Bahdanau의 작업에 있었습니다. 진짜 전환은 recurrence와 convolution을 뼈대에서 빼고, 각 token이 다른 token을 직접 접근하게 한 것입니다. 계산 경로는 더 이상 텍스트 순서에 묶이지 않았고, long-range dependency는 긴 중간 상태의 사슬을 통과할 필요가 없어졌습니다.
 
-둘째, 핵심 모듈을 실제 Python 코드로 옮기면 각 설계 결정이 더 구체적으로 보인다. Scaled Dot-Product Attention을 직접 작성하면, 그 sqrt(d_k) 스케일링이 왜 중요한지 확인할 수 있다. masking을 구현하면, 자기회귀 생성 제약이 정확히 어디서 오는지 이해하게 된다. 엔지니어링 관점에서는 논문 읽기와 구현을 함께 가져가는 편이 좋다.
+Self-attention, residual connection, LayerNorm, feed-forward network는 각각의 영웅이 아닙니다. 함께 병렬 학습과 scale에 맞는 sequence machine을 만듭니다. Transformer의 힘은 정보 흐름과 하드웨어 효율을 동시에 다시 쓴 데 있습니다.
 
-셋째, 가장 주목할 지점은 이후 얼마나 많은 모델을 탄생시켰는가가 아니라, 2017년에 문제를 재정의했다는 사실이다: "어떻게 문장을 순서대로 기억할 것인가"에서 "어떻게 모든 위치가 가장 필요한 정보를 직접 찾게 할 것인가"로. GPT, BERT, T5, LLaMA -- 이 모두가 그 재정의의 산물이다.
-
-충분히 좋은 아키텍처가 얼마나 멀리 갈 수 있는지는, 얼마나 많은 사람이 그 위에 계속 쌓아 올릴 의향이 있는지에 달려 있다.
-
-이 논문이 우리에게 그 아키텍처를 주었다.
-
-《Attention Is All You Need》 (어텐션만 있으면 충분하다).
+다음에 새 아키텍처를 볼 때는 어떤 모듈을 썼는지만 묻지 않는 편이 좋습니다. 문제의 좌표계를 바꿨는지 물어야 합니다. 오래된 계산 경로를 최적화하는가, 아니면 정보 주소 지정 방식을 바꾸는가?
 
 ---
 

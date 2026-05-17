@@ -1,108 +1,90 @@
 ---
-title: "OpenClaw 생태계: 오픈소스 프로젝트에서 AI 어시스턴트 플랫폼으로 🦞"
+title: "OpenClaw 생태계: 오픈소스 프로젝트에서 AI assistant platform으로 🦞"
 date: "2026-02-03T16:09:32+08:00"
 category: "OpenClaw"
-description: 하나의 오픈소스 프로젝트에서 완전한 AI 어시스턴트 생태계로
+description: OpenClaw를 다시 본다. star는 ecosystem이 아니다. supply friction과 usage friction을 계속 낮추는 structure가 ecosystem이다.
 tags: [AI, open-source, openclaw]
 pinned: false
 ---
 
 ![OpenClaw](/images/openclaw-logo-text-dark.webp)
 
+star는 ecosystem이 아니다.
+
+ecosystem의 첫 번째 질문은 friction이다. developer가 capability를 공급하기 얼마나 어려운가. user가 그것을 발견하고 쓰기 얼마나 어려운가. system이 두 쪽을 얼마나 안정적으로 연결하는가. OpenClaw가 여기서 중요한 이유는 한때 뜨거웠기 때문이 아니라, 하나의 agent runtime을 중심으로 분업 구조가 자라기 시작했기 때문이다.
+
 ## 0. 먼저 몇 가지 용어부터
 
-이런 생태계 분석 글이 처음이라면, 아래 5개 용어를 먼저 잡고 가면 좋다:
+- `ecosystem`: 하나의 repository가 아니라, 같은 core capability 주변에서 역할을 나누는 product와 tool의 묶음
+- `runtime`: agent가 계속 실행되며 tool을 조정하고, context를 관리하고, task를 실행하는 핵심 process
+- `skill marketplace`: agent가 새 capability를 찾고 설치하는 입구
+- `workflow engine`: 반복되는 multi-step task를 재사용 가능한 flow로 포장하는 장치
+- `flywheel`: supply, usage, feedback이 서로를 강화하는 growth loop
 
-- `생태계`: 하나의 레포가 아니라, 같은 핵심 능력을 중심으로 여러 제품과 도구가 연결된 상태
-- `런타임`: Agent가 실제로 돌아가며 작업을 조율하는 핵심 프로세스
-- `스킬 마켓플레이스`: Agent 능력을 발견하고 설치하는 장소
-- `워크플로우 엔진`: 반복적인 다단계 작업을 재사용 가능한 흐름으로 묶는 시스템
-- `플라이휠`: 공급과 사용이 서로를 키우는 성장 루프
+## 1. Heat보다 Constraint를 먼저 본다
 
-## 1. 사람부터 시작하자
+Peter Steinberger는 2011년에 PSPDFKit을 창업해 PDF low-level technology를 오래 만들었다. Apple, Dropbox 같은 고객에게 서비스했고, 이후 일선 개발에서 물러났다가 2025년에 AI product prototype으로 돌아왔다.
 
-프로젝트를 이해하려면 그 뒤에 있는 사람부터 봐야 한다.
+Clawdbot은 이 맥락에서 나왔다. 약 한 시간의 prompting으로 project skeleton을 만들고, 11월에 공개했으며, 이름은 Anthropic의 Claude에 대한 nod였다. 2026년 1월 말 Anthropic이 trademark warning을 보냈고, project는 3일 안에 Clawdbot에서 Moltbot, 다시 OpenClaw로 바뀌었다. 이 사건은 48시간 만에 34,000 stars를 만들었다.
 
-Peter Steinberger, 오스트리아인. 2011년에 PSPDFKit을 창업해서 로우레벨 PDF 기술을 만들었다. Apple과 Dropbox이 고객이었고, 10억 대 이상의 기기에 서비스를 제공했다. 결과? 공개된 보도에 따르면 "9자릿수 영역"이었다. 그리고 그는 일선에서 물러났다.
+하지만 heat는 traffic을 설명할 뿐 ecosystem을 설명하지 못한다. ecosystem은 structure로 판단해야 한다.
 
-그 뒤 번아웃이 왔다. 본인의 말을 빌리면: "화면만 멍하니 쳐다보고, 코드를 한 줄도 못 썼다." 마드리드행 편도 티켓을 사서 한동안 완전히 세상과 단절했다.
+## 2. Repository 수가 Ecosystem은 아니다
 
-2025년 중반, 블로그에 이렇게 썼다: 불꽃이 돌아왔다고. AI가 데모 단계를 넘어서 진짜 제품 프로토타입을 만들어낼 수 있게 됐다고. 약 한 시간 정도 프롬프팅을 해서 프로젝트의 뼈대를 만들고, 11월에 공개했다. 이름은 Clawdbot -- Anthropic의 Claude에서 따온 말장난(Claw = 집게발)이고, 마스코트는 랍스터다.
+OpenClaw는 이제 runtime repository 하나가 아니다. 여러 layer로 갈라지기 시작했다.
 
-2026년 1월 말, Anthropic에서 상표권 경고가 날아왔다 -- 이름이 Claude랑 너무 비슷하다는 거였다. 3일 만에 Clawdbot에서 Moltbot(Molt = 탈피)으로, 다시 OpenClaw로 바뀌었다. 이 이름 변경 자체가 화제가 되면서 48시간 만에 스타가 3만 4천 개 늘었다.
+| Component | Role | Signal |
+|------|------|------|
+| **OpenClaw** | Core agent runtime | 140k+ stars |
+| **ClawHub** | Skill marketplace | 5.4k stars |
+| **Lobster** | Workflow engine | ~800 stars |
+| **acpx** | Headless command-line tool | ~780 stars |
+| **openclaw-ansible** | Automated deployment | ~490 stars |
+| **nix-openclaw** | Declarative Nix setup | ~530 stars |
 
-## 2. 단순한 프로젝트가 아니다 -- 생태계를 키우고 있다
+이 표에서 볼 것은 숫자가 아니라 boundary다. runtime, marketplace, workflow, deployment가 하나의 거대한 repository로 다시 합쳐지지 않고 agent lifecycle 주변에서 나뉜다.
 
-바이럴을 탄 오픈소스 프로젝트 대부분에서 "생태계"란 결국: 문서에 있는 로드맵 하나랑 껍데기뿐인 레포 몇 개다.
+platform이 되려면 두 friction을 동시에 낮춰야 한다. supply side에서 capability를 만드는 friction, usage side에서 capability를 발견하는 friction. OpenClaw도 여기서 판단해야 한다.
 
-OpenClaw는 다르다. 실질적인 제품 레이어링이 이루어지고 있다:
+## 3. 세 가지 구조적 신호
 
-| 컴포넌트 | 하는 일 | 스타 수 |
-|-----------|---------|---------|
-| **OpenClaw** | 코어 Agent 런타임 -- 두뇌 | 140k+ |
-| **ClawHub** | 스킬 마켓플레이스 -- Agent용 App Store | 5.4k |
-| **Lobster** | 워크플로우 엔진 -- 반복 작업을 원클릭 파이프라인으로 패키징 | ~800 |
-| **acpx** | Headless CLI 도구 | ~780 |
-| **openclaw-ansible** | 자동 배포 -- 명령어 하나로 전부 세팅 | ~490 |
-| **nix-openclaw** | Nix 선언적 설정 | ~530 |
+### Channel Coverage: Usage Friction을 낮춘다
 
-런타임, 스킬 마켓플레이스, 워크플로우 엔진, 배포 도구 -- 각각이 자기 역할을 하고, 책임 경계가 깔끔하다. 하나의 레포에 전부 쑤셔넣는 식의 조잡한 확장이 아니다. 설계된 레이어링이다.
+WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Feishu, LINE, Matrix 등 20개 이상의 platform이 연결되어 있다. 겉으로는 channel coverage지만, 실제로는 entry point의 위치가 바뀐다.
 
-## 3. 핵심 판단 몇 가지
+사용자는 AI assistant를 쓰기 위해 새 app으로 이동할 필요가 없다. agent가 이미 쓰는 chat channel 안으로 들어오고, task는 기존 대화 안에서 생긴다. adoption의 핵심은 기능 수가 아니라 첫 사용의 저항이 충분히 낮은가다.
 
-### 채널 커버리지: 과시가 아니다 -- "아무것도 안 해도 된다"는 뜻이다
+### ClawHub: Discovery Friction을 낮춘다
 
-WhatsApp, Telegram, Slack, Discord, Signal, iMessage, Feishu, LINE, Matrix... 20개 이상의 플랫폼과 직접 연동된다.
+skill marketplace는 vector search로 semantic matching을 한다. 사용자는 directory를 뒤질 필요 없이 "email을 보내는 skill"이라고 말하면 후보를 찾을 수 있다.
 
-이게 무슨 뜻이냐? 새 앱을 깔 필요 없다. 새 인터페이스를 배울 필요 없다. 어떤 습관도 바꿀 필요 없다. 이미 쓰고 있는 채팅에 그냥 나타난다. WhatsApp에서 메시지 보내면 끝 -- 친구한테 카톡하는 것처럼.
+이것은 discovery 문제를 푼다. supply 문제를 푼 것은 아니다. skill marketplace가 성립하려면 고품질 third-party skill이 계속 나오고, 유지되고, review되고, 신뢰되어야 한다. discovery entrance는 생겼다. supply flywheel은 아직 증명되지 않았다.
 
-채널이 많다는 건 실제 사용 시나리오에 더 가깝다는 뜻이고, 첫 사용의 문턱이 낮다는 뜻이다. 이런 "저마찰 접근"은 단순한 편의가 아니라 압도적인 채택 우위다. 물론 내부적으로는 프로토콜 적응과 유지보수 비용이 있지만, 그건 대가일 뿐 핵심이 아니다. 핵심은 AI 어시스턴트를 "따로 열어야 하는 새 도구"에서 "이미 채팅에 있는 능력"으로 바꾼다는 것이다.
+### Lobster: Replanning Friction을 낮춘다
 
-### ClawHub: 방향은 맞다, 아직 이르다
+multi-step task에서 숨은 비용은 종종 개별 tool call이 아니다. 매번 model이 workflow를 다시 계획하게 만드는 비용이다.
 
-스킬 마켓플레이스는 벡터 검색으로 시맨틱 매칭을 한다 -- 카테고리 디렉토리를 뒤질 필요 없이 "이메일 보내는 스킬 찾아줘"라고 하면 알아서 찾아준다. 설계 의도는 훌륭하다.
+Lobster는 자주 쓰는 작업을 reusable workflow로 포장한다. flow가 검증되면 model이 매번 즉석에서 다시 구성하지 않아도 된다. approval gate도 있어 영향이 큰 step이 blind automation이 되는 것을 줄인다.
 
-하지만 스킬 마켓플레이스의 플라이휠이 정말 돌아가느냐는 두 가지에 달렸다: 충분한 양질의 스킬, 그리고 충분히 좋은 디스커버리. 후자는 이미 갖춰져 있다. 전자는? 서드파티 스킬 퍼블리싱 빈도, 설치량, 업데이트 활동, 리뷰 처리량 -- 이 중 어느 것도 공개 대시보드가 없다. 플라이휠은 돌기 시작했지만, 자생력까지는 멀었다.
+가치는 "더 많은 자동화"가 아니다. 반복 작업을 live reasoning에서 inspectable procedure로 옮기는 것이다.
 
-### Lobster: 숨겨진 페인 포인트를 해결한다
+## 4. Risk도 Structure에서 나온다
 
-AI Agent의 가장 큰 숨은 비용이 뭘까? 중복 계획 수립이다.
+**Security는 ecosystem의 전제다.** Kaspersky는 512개 vulnerability를 발견했고, 그중 8개는 critical이었다. high-privilege agent, third-party skills, 20개 이상의 entry points가 합쳐지면 attack surface는 자연스럽게 커진다. security debt는 평범한 technical debt가 아니라 trust debt다.
 
-Agent한테 다단계 작업을 시킬 때마다 매번 처음부터 다시 생각한다: 뭘 먼저 할지, 다음엔 뭘 할지, 어떻게 할지. 이렇게 토큰이 타들어간다. Lobster의 접근법: 고빈도 작업을 원클릭 파이프라인으로 패키징 -- 한 번 만들고, 반복 호출하고, 재계획 불필요.
+**Business model은 아직 닫히지 않았다.** MIT license, subscription 없음, user-provided API key는 adoption friction을 낮춘다. 동시에 운영 비용 회수를 어렵게 만든다. open-source heat는 자동으로 maintenance budget이 되지 않는다.
 
-승인 게이트도 있다: 중요한 단계에서 일시 정지하고 사용자의 허가를 기다린다. Agent가 폭주하는 걸 방지하는 거다. 이건 팀이 Agent에게 얼마나 자율성을 줘야 하는지에 대해 적어도 진지하게 고민했다는 증거다.
+**Contribution structure도 봐야 한다.** 방향, product judgment, core implementation이 계속 소수에게 집중되면 ecosystem depth는 single-point dependence에 막힌다. platform과 star project의 차이는 non-founder contribution이 예측 가능하게 늘어나는가에 있다.
 
-### 보안: 피할 수 없는 관문
+## 5. 앞으로 볼 것
 
-Kaspersky가 512개의 취약점을 감사했고, 그중 8개가 크리티컬이었다(감사는 아직 Clawdbot이던 시절에 이루어졌다). Cisco의 보안 팀은 대놓고 "보안 악몽"이라고 불렀다. Gary Marcus는 공개적으로 "터지기를 기다리는 재앙"이라고 했다.
+OpenClaw의 질문은 더 이상 attention을 모을 수 있느냐가 아니다. 이미 모았다.
 
-문제는 구조적이다: Agent에게 권한을 많이 줄수록 할 수 있는 일이 많아지지만, 공격 표면도 그만큼 넓어진다. Prompt injection으로 나쁜 짓을 시킬 수 있다. 이미 외부 서버로 데이터를 빼돌리는 스킬이 적발된 적도 있다.
+이제 볼 것은 네 가지다.
 
-OpenClaw도 모르는 건 아니다 -- 페어링 코드, 허용 목록, 샌드박싱, 명령어 승인까지, 층층이 조여가고 있다. 하지만 "고권한 Agent + 서드파티 스킬 + 20개 이상의 진입점"이라는 구조적 긴장은 버그 패치 몇 개로 해결되지 않는다. 이건 장기전이다.
+1. security default가 조여지는가: pairing, allowlist, sandbox, approval이 option이 아니라 default가 되는가.
+2. skill ecosystem이 supply를 만드는가: quality skill이 계속 publish, install, update, review되는가.
+3. non-founder contribution이 늘어나는가: ecosystem이 single-person drive를 벗어나는가.
+4. governance가 읽히는가: maintainership, review authority, roadmap decision이 community에 의해 이해되고 계승될 수 있는가.
 
-## 4. 리스크 -- 안 다룰 수가 없다
-
-좋은 얘기는 여기까지. 이제 나쁜 얘기.
-
-**보안 부채는 기술 부채가 아니다 -- 신뢰 부채다.** 대형 보안 사고 하나가 터지면 OpenClaw만 다치는 게 아니라, 셀프호스팅 AI Agent이라는 경로 위의 모든 프로젝트가 다친다. 내러티브 전체가 물 밑으로 끌려간다.
-
-**비즈니스 모델이 물음표다.** MIT 라이선스, 구독 없음, 사용자가 자기 API 키를 가져온다. Peter는 프로젝트의 월간 서버 비용이 1~2만 달러 수준이라고 공개적으로 언급했다. 스폰서십으로 돌아가는 오픈소스 프로젝트 -- 지속 가능성은 화제가 돈으로 전환될 수 있느냐에 달렸다. 아직 명확한 경로는 없다.
-
-**성장의 질이 의심스럽다.** 1월 30일의 폭발은 Moltbook(AI Agent 소셜 네트워크)의 바이럴 확산과 긴밀하게 연결되어 있었다. 바이럴로 유입된 스타 중 얼마나 많은 수가 실질적인 생태계 기여자가 될까? 스타 ≠ 코드 기여 ≠ 생태계 깊이.
-
-**단일 지점 의존.** 18,000건 이상의 커밋이 있지만, 핵심 로드맵과 제품 판단은 여전히 한 사람 -- 창업자에게 크게 의존하고 있다. 커뮤니티에서 메인테이너가 합류했지만, "한 사람의 프로젝트"에서 "커뮤니티의 플랫폼"으로 갈 수 있느냐가 진짜 분수령이다.
-
-## 5. 결론
-
-OpenClaw에서 정말 희소한 건 화제성이 아니다 -- 화제성은 누구나 잠깐은 가질 수 있다. 희소한 건 이미 단일 프로젝트에서 생태계의 맹아로 자라났다는 것이다: 레이어링이 있고, 분업이 있고, 실질적인 제품 형태가 있다.
-
-하지만 화제성은 결국 사그라든다.
-
-물이 빠진 뒤에 운명을 결정하는 건 네 가지다:
-
-1. **보안이 단단해졌는가?** 페어링, 허용 목록, 샌드박싱, 승인 게이트가 "옵션"에서 "기본값"으로 바뀌었는가?
-2. **스킬 생태계가 돌아가고 있는가?** 스타 수는 잊어라 -- 양질의 스킬이 퍼블리싱되고, 설치되고, 리뷰되는 선순환이 생겼는가?
-3. **창업자 외 기여 비율이 늘고 있는가?** 이것이 "스타 프로젝트"인지 "지속 가능한 플랫폼"인지를 결정한다.
-4. **거버넌스 구조가 명확한가?** 이것이 화제성 주도 프로젝트에서 장기 인프라로 진화할 수 있는지를 결정한다.
-
-계속 추적할 예정이다.
+star는 ecosystem을 증명하지 못한다. supply friction과 usage friction을 계속 낮추는 structure가 ecosystem의 시작을 증명한다.

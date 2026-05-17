@@ -115,21 +115,14 @@ Memory introduces stale state, privacy boundaries, and retrieval pollution. Skil
 
 There is also an evaluation problem. If agent capability is distributed across the model and external infrastructure, what exactly are we measuring? The same model can behave very differently inside different harnesses. “Model capability” and “agent capability” are no longer the same thing.
 
-That is the point worth keeping. The paper is not saying that externalization solves everything. It says reliable agency is a joint product of model and environment.
+That is the point to keep. The paper is not saying that externalization solves everything. It says reliable agency is a joint product of model and environment.
 
-## Practical takeaway
+## Practical Takeaway
 
-The paper can be compressed into one practical sentence:
+This survey's sharpest lesson is: **one main line of agent progress is moving cognitive load from model weights into external structures that can be inspected, reused, and governed.**
 
-**Agent engineering is increasingly harness engineering.**
+That does not make the model unimportant. The model still sets the ceiling for understanding, planning, and generation. But once an agent enters long-running work, reliability cannot depend on improvising from scratch every time. State has to persist. Procedure has to be reusable. Tool calls need protocols. Permission and failure need a harness.
 
-Not because models stopped mattering, but because models now operate inside a larger cognitive system. Memory extends them across time. Skills stabilize procedure. Protocols impose interaction order. Harnesses make the whole thing observable, permissioned, and recoverable.
+Externalization changes the task from "make the model figure it out every time" to "let the system preserve what can be preserved." Memory preserves time. Skills preserve procedure. Protocols preserve interaction order. Governance preserves boundaries. The harness turns those pieces into a runtime environment.
 
-When evaluating an agent system, the better question is less “which model does it use?” and more:
-
-- What state has it externalized?
-- What reusable skills does it carry?
-- Are its tools and agent interactions protocolized?
-- How does its harness handle permissions, failures, logs, and human approval?
-
-Those questions often reveal more about the real system than the model name does.
+The next time you evaluate an agent system, do not only ask which model it uses. Ask what cognitive load it has moved outside the model, and which external structures can be inspected, updated, and rolled back. That question is closer to real capability than the model name is.

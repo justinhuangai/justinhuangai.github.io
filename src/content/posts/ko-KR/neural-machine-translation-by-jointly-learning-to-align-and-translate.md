@@ -7,13 +7,9 @@ tags: [paper-reading, attention, AI, LLM, python]
 pinned: false
 ---
 
-2014년 9월 1일, 세 명의 연구자가 arXiv(연구자들이 학술지 피어 리뷰를 거치지 않고 논문을 공개할 수 있는 프리프린트 서버)에 한 편의 논문을 업로드했다: [《Neural Machine Translation by Jointly Learning to Align and Translate》](/papers/1409.0473v7.pdf) (정렬과 번역을 공동으로 학습하는 신경 기계 번역).
+Seq2Seq는 end-to-end 번역이 가능하다는 것을 보였지만, 하나의 단단한 병목을 남겼습니다. 원문 전체가 하나의 고정 벡터에 들어가야 했습니다. [《Neural Machine Translation by Jointly Learning to Align and Translate》](/papers/1409.0473v7.pdf)의 첫 번째 의미는 "문장 전체를 기억하라"를 "매 단계 관련 정보를 다시 찾아라"로 바꾼 데 있습니다.
 
-저자는 몬트리올 대학교의 Dzmitry Bahdanau, KyungHyun Cho, Yoshua Bengio 세 사람이다. Yoshua Bengio는 Geoffrey Hinton, Yann LeCun과 함께 딥러닝의 "세 거장"으로 불리며, 세 사람은 2018년 튜링상을 공동 수상했다. Bahdanau는 당시 아직 박사과정 학생이었다.
-
-이 논문의 핵심 기여는 한 가지로 요약할 수 있다: 번역 모델이 각 단어를 생성할 때 원문의 서로 다른 부분을 되돌아볼 수 있게 한 것이다. 지금 생각하면 당연해 보이지만, 당시 신경 기계 번역 연구에서 이것은 진정으로 새로운 아이디어였다. 이 아이디어에는 이름이 있다: "attention 메커니즘."
-
-3년 후, Google의 여덟 명의 연구자가 이 아이디어를 논리적 극한까지 밀어붙여 [《Attention Is All You Need》](/ko-KR/posts/attention-is-all-you-need/) (어텐션만 있으면 충분하다)를 썼다. Transformer를 이해하고 싶다면, 이 논문은 가장 중요한 선행 연구 중 하나다.
+여기서 attention은 아직 Transformer의 주인공이 아닙니다. RNN 옆에 붙은 검색 경로입니다. 진짜 변화는 공식이 아니라 과제의 형태입니다. Decoder는 더 이상 하나의 요약 벡터만 믿지 않습니다. 단어를 생성할 때마다 입력과 다시 정렬할 수 있습니다.
 
 ## 0. 먼저 몇 가지 용어부터
 
@@ -183,23 +179,15 @@ class AttentionDecoder(nn.Module):
 
 논문은 또한 attention 가중치를 시각화했다. 영어-프랑스어 번역에서 attention 가중치는 거의 대각선을 이루며, 모델이 "영어 단어 1은 프랑스어 단어 1에 대응, 영어 단어 2는 프랑스어 단어 2에 대응"하는 것을 자동으로 학습했음을 보여준다. 어순이 다를 때(예를 들어 프랑스어에서 형용사가 명사 뒤에 오는 경우) attention 가중치가 그에 맞게 이동했다. 모델은 이 모든 것을 수동 정렬 주석 없이 학습했다.
 
-## 6. 읽고 나서
+## 6. 이 논문이 바꾼 질문
 
-이 논문을 읽고 몇 가지가 눈에 띈다.
+Attention의 첫 번째 의미는 이것입니다. **문장 전체를 기억하라를 매 단계 관련 정보를 다시 찾아라로 바꾼다.**
 
-첫째, 이 논문이 해결하는 문제가 극도로 명확하다: encoder가 전체 문장을 하나의 벡터로 압축하면 긴 문장에서 정보가 손실된다. 해결책도 마찬가지로 직관적이다: 압축을 멈추고 decoder가 스스로 찾게 하면 된다. 좋은 연구는 흔히 이런 식이다 -- 문제가 명확하고, 해결책이 자연스럽게 따라온다.
+이 논문은 Transformer를 발명한 것도, RNN을 버린 것도 아닙니다. 인터페이스를 바꿨습니다. Encoder는 더 이상 하나의 요약만 넘기지 않습니다. 입력의 각 위치에 대한 표현을 보관합니다. Decoder는 단어를 생성할 때마다 원문의 어디를 볼지 다시 결정합니다.
 
-둘째, 이 논문에서 attention은 여전히 RNN의 보조 역할이다. Encoder는 여전히 순환 구조(bidirectional RNN)이고, decoder도 여전히 순환 구조이며, attention은 단지 둘을 연결하는 다리일 뿐이다. 3년 후, Vaswani 등은 훨씬 더 급진적인 질문을 던졌다: attention이 이렇게 잘 작동한다면, RNN을 완전히 버리고 attention만 남기면 어떨까? 그 답이 Transformer였다.
+이 변화가 긴 문장의 운명을 바꿨습니다. 모델은 더 이상 하나의 고정 벡터에 모든 것을 기억하도록 강요받지 않습니다. 번역은 반복되는 검색과 생성이 됩니다. Alignment는 외부 주석이 아니라 학습 목표 안에서 생겨납니다.
 
-셋째, 이 논문의 attention 메커니즘을 실제 Python으로 다시 써 보면, Transformer의 Scaled Dot-Product Attention에 비해 계산이 상당히 복잡하다는 것을 알 수 있다. Additive attention은 추가 가중치 행렬 W_a, U_a, v_a가 필요한 반면, dot-product attention은 Q와 K를 직접 곱하고 스케일링하기만 하면 된다. "덧셈"에서 "곱셈"으로의 전환은 작은 한 걸음처럼 보이지만, 실제로는 계산을 극적으로 단순화하고 효율적인 행렬 연산에 훨씬 더 적합하게 만들었다.
-
-넷째, Bahdanau는 당시 박사과정 학생이었고, Bengio가 그의 지도교수였다. 한 박사과정 학생의 논문이 이후 10년간 AI 연구의 핵심 구성 요소를 정의하게 된 것이다. Attention 메커니즘은 여기서 시작되어 Transformer에 의해 증폭되었고, 궁극적으로 GPT, BERT, LLaMA의 기반이 되었다.
-
-이 논문은 복잡한 수학을 발명하지 않았다. 단지 직관적인 질문 하나를 던졌을 뿐이다: 왜 decoder가 되돌아볼 수 없는가?
-
-그리고 decoder가 되돌아보게 했다.
-
-그 한 번의 되돌아봄이 시대 전체를 바꿨다.
+다음에 attention을 볼 때는 공식이 얼마나 예쁜지부터 묻지 않는 편이 좋습니다. 어떤 과제를 기억 문제에서 검색 문제로 바꿨는지 물어야 합니다. 그것이 나중에 Transformer로 확대될 수 있었던 이유입니다.
 
 ---
 

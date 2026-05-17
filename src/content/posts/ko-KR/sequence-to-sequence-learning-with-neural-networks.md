@@ -7,13 +7,9 @@ tags: [paper-reading, seq2seq, AI, LLM, python]
 pinned: false
 ---
 
-2014년 9월 10일, 세 명의 Google 연구자가 arXiv(연구자들이 저널 심사를 거치지 않고 논문을 공개할 수 있는 프리프린트 서버)에 한 편의 논문을 올렸다: [《Sequence to Sequence Learning with Neural Networks》](/papers/1409.3215v3.pdf) (신경망을 이용한 시퀀스-투-시퀀스 학습).
+Seq2Seq의 출발점은 단순한 제약입니다. 입력과 출력의 길이가 모두 고정되어 있지 않습니다. 전통적인 번역 파이프라인은 이를 처리할 수 있었지만, 끝에서 끝까지 함께 최적화하기는 어려웠습니다. [《Sequence to Sequence Learning with Neural Networks》](/papers/1409.3215v3.pdf)는 이 문제를 두 개의 학습 가능한 인터페이스로 바꿨습니다. 하나의 네트워크가 입력 전체를 읽고, 다른 네트워크가 출력을 한 단계씩 생성합니다.
 
-저자는 Ilya Sutskever, Oriol Vinyals, Quoc V. Le로, 모두 Google 소속이었다. Sutskever는 AlexNet의 공동 저자로, Alex Krizhevsky, Geoffrey Hinton과 함께 딥러닝 혁명의 불을 지핀 논문을 작성했으며, 이후 OpenAI의 공동 창립자가 되었다. Vinyals는 이후 DeepMind에서 AlphaStar(DeepMind의 StarCraft AI)를 이끌었고, Quoc V. Le는 Google에서 AutoML 등의 연구를 주도했다.
-
-이 논문이 한 일은 겉보기에 매우 단순하다: 하나의 신경망으로 문장을 읽어 벡터로 압축하고, 또 다른 신경망으로 그 벡터에서 번역을 생성한다. 입력과 출력은 길이도, 언어도, 구조도 다를 수 있다. 이 프레임워크에는 이름이 있다: "Sequence to Sequence" (Seq2Seq).
-
-이것이 encoder-decoder 패러다임을 확립했다. 이후 [Bahdanau가 여기에 attention을 추가했고](/ko-KR/posts/neural-machine-translation-by-jointly-learning-to-align-and-translate/), [Vaswani 등이 Transformer로 아키텍처 전체를 새로 썼다](/ko-KR/posts/attention-is-all-you-need/). 하지만 출발점은 이 논문이었다.
+이 논문의 가치는 기계 번역을 한 번에 해결했다는 데 있지 않습니다. end-to-end sequence mapping이 가능하다는 것을 보였다는 데 있습니다. 동시에 약점도 분명했습니다. 모든 정보가 하나의 고정 길이 벡터를 지나야 했습니다. Attention과 Transformer는 이 병목에서 자라났습니다.
 
 ## 0. 먼저 몇 가지 용어부터
 
@@ -147,7 +143,7 @@ source_tensor = torch.tensor([reversed_source], dtype=torch.long)
 
 ## 5. 모델이 "이해하는" 것
 
-논문은 흥미로운 시각화 실험도 수행했다. 다양한 문장을 encoder에 입력하고 최종 hidden state 벡터를 추출한 뒤, PCA로 2차원 평면에 투영했다.
+논문은 구조를 드러내는 시각화 실험도 수행했다. 다양한 문장을 encoder에 입력하고 최종 hidden state 벡터를 추출한 뒤, PCA로 2차원 평면에 투영했다.
 
 결과:
 - 의미가 유사한 문장들이 벡터 공간에서 가까이 모였다
@@ -168,23 +164,15 @@ source_tensor = torch.tensor([reversed_source], dtype=torch.long)
 
 **배치 최적화**: 비슷한 길이의 문장을 같은 배치에 묶어, 짧은 문장이 긴 문장을 "기다리며" 연산 자원을 낭비하는 것을 방지. 이로 인해 학습 속도가 2배 향상되었다.
 
-## 7. 주요 관찰
+## 7. 이 논문이 바꾼 질문
 
-이 논문을 읽고 몇 가지가 눈에 띈다.
+Seq2Seq의 핵심 문장은 이것입니다. **end-to-end mapping은 가능하지만, 고정 벡터는 병목이 된다.**
 
-첫째, 이 논문은 목표는 컸지만 방법은 단순했다. 하나의 LSTM이 읽고, 또 하나의 LSTM이 쓰고, 모든 정보는 그 사이의 단일 벡터를 통과한다. Attention도 없고, 복잡한 정렬 메커니즘도 없으며, 언어 구조에 대한 사전 가정조차 없다. 결과는 정교하게 튜닝된 전통 시스템과 경쟁할 만했다. 교훈: 충분한 데이터와 연산 자원이 주어지면, 단순한 end-to-end 방법도 강력할 수 있다.
+이 논문은 기계 번역을 사람이 조립한 파이프라인에서 하나의 시스템으로 학습할 수 있는 mapping 문제로 바꿨습니다. 신경망이 입력 전체를 읽고, 출력을 한 단계씩 생성할 수 있음을 보였습니다. 입력과 출력의 길이가 같을 필요도, 사람이 정렬을 붙일 필요도 없었습니다.
 
-둘째, 소스 뒤집기 발견은 상당히 시사적이다. 우아한 해결책은 아니다 -- 오히려 hack에 가깝다. 하지만 RNN의 근본적 한계를 드러냈다: 시퀀스 내 요소 간 거리에 대한 민감성. Bahdanau의 attention 메커니즘은 모델이 "건너뛰며 볼 수" 있게 해서 더 이상 거리에 구속되지 않게 만들었다. Transformer는 여기서 더 나아가 순차 처리를 완전히 포기하여, 어떤 두 위치 간의 거리든 항상 1로 만들었다. 뒤집기에서 attention으로, attention에서 Transformer로 -- 같은 문제에 대한 세 세대의 해결책이다.
+동시에 병목도 분명히 드러났습니다. 원문 정보 전체가 하나의 벡터를 지나야 했습니다. 문장이 길수록 압축 손실은 커집니다. source sentence를 뒤집는 요령은 거리 문제를 완화했지만, 정보가 좁은 문을 지나야 한다는 사실은 바꾸지 못했습니다.
 
-셋째, 이 논문과 Bahdanau의 논문은 거의 동시에 발표되었다(둘 다 2014년 9월). Sutskever가 encoder-decoder 패러다임을 확립했고, Bahdanau가 고정 길이 벡터 병목을 발견하고 attention 메커니즘으로 해결했다. 두 논문은 동전의 양면과 같다: 하나는 프레임워크이고, 다른 하나는 그 프레임워크의 가장 큰 결함에 대한 수정이다.
-
-넷째, 이것을 실제 Python으로 다시 써 보면 아키텍처가 얼마나 최소한인지 체감할 수 있다. Encoder는 그저 입력을 순회하고, decoder는 그저 출력을 순회한다. 하지만 바로 이 단순함 때문에 한계도 분명하다: 모든 정보가 고정 길이 벡터 하나를 통과해야 한다. 이 병목은 코드를 직접 작성할 때 특히 실감난다.
-
-하나의 벡터가 얼마나 많은 정보를 담을 수 있을까? 이것이 이 논문의 암묵적 질문이다.
-
-더 길고 복잡한 문장에 대해서는 -- 충분하지 않다.
-
-그래서 이후에 attention이 나왔고, 그 뒤에 Transformer가 나왔다.
+다음에 Seq2Seq를 볼 때는 "encoder-decoder"에서 멈추지 않는 편이 좋습니다. 이 시스템은 정보를 어디에 압축하는가? 그 압축 지점이 다음 아키텍처가 우회해야 할 병목이 되는가?
 
 ---
 
