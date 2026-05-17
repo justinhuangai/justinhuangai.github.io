@@ -58,7 +58,7 @@ export const ko = {
   },
   about: {
     title: '소개',
-    description: '<a href="https://github.com/justinhuangai/astro-theme-aither">Astro-Theme-Aither</a>로 만든 미니멀 블로그입니다.',
+    description: 'Justin Huang blog: AI 논문, agent system, software infrastructure를 인과 사슬로 읽는 개인 기술 블로그입니다.',
   },
   galleryPage: {
     name: '사진',

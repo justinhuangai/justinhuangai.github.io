@@ -58,7 +58,7 @@ export const en = {
   },
   about: {
     title: 'About',
-    description: 'This is a minimal blog powered by <a href="https://github.com/justinhuangai/astro-theme-aither">Astro-Theme-Aither</a>.',
+    description: 'Justin Huang blog: a personal technical blog for reading AI papers, agent systems, and software infrastructure through causal chains.',
   },
   galleryPage: {
     name: 'Photos',

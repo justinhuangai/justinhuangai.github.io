@@ -58,7 +58,7 @@ export const zhTw = {
   },
   about: {
     title: '關於',
-    description: '這是一個基於 <a href="https://github.com/justinhuangai/astro-theme-aither">Astro-Theme-Aither</a> 的極簡部落格。',
+    description: 'Justin Huang blog：一個個人技術部落格，用因果鏈閱讀 AI 論文、Agent 系統和軟體基礎設施。',
   },
   galleryPage: {
     name: '照片',
